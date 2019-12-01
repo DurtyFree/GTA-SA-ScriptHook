@@ -1,0 +1,35 @@
+﻿  Stdafx.cpp
+  AssemblyInfo.cpp
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\AssemblyInfo.cpp(43,29): warning C4947: 'System::Security::Permissions::SecurityAction::RequestMinimum': marked as obsolete
+  CClientRadarArea.cpp
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\AssemblyInfo.cpp(43,29): message : Message: 'Assembly level declarative security is obsolete and is no longer enforced by the CLR by default. See http://go.microsoft.com/fwlink/?LinkID=155570 for more information.'
+  CClientRadarAreaManager.cpp
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\NativeTypes.h(59,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  CPadSA.cpp
+  GameVersion.cpp
+  GTAUtils.cpp
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\NativeTypes.h(59,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Hooking.cpp
+  InternalCalls.cpp
+  LegacyCrap.cpp
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\GTAUtils.cpp(13): warning C4409: illegal instruction size
+  Log.cpp
+  Main.cpp
+  OpcodeMap.cpp
+  Pool.cpp
+  RenderWareSA.cpp
+  Script.cpp
+  ScriptDomain.cpp
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\NativeTypes.h(59,14): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\ScriptDomain.cpp(35,2): warning C4947: 'System::Security::Policy::PolicyLevel::CreateAppDomainLevel': marked as obsolete
+  ScriptLoader.cpp
+  ScriptProcessor.cpp
+  TextHook.cpp
+  VarPointer.cpp
+  Generating Code...
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\ScriptDomain.cpp(35,2): message : Message: 'AppDomain policy levels are obsolete and will be removed in a future release of the .NET Framework. See http://go.microsoft.com/fwlink/?LinkID=155570 for more information.'
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\CClientRadarArea.cpp(46): warning C4793: 'GTA::HOOK_CRadar__DrawRadarGangOverlay': function compiled as native:
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GTAScriptHook\CClientRadarArea.cpp(46): warning C4793: 	The function is marked as 'naked'
+  .NETFramework,Version=v4.0.AssemblyAttributes.cpp
+  AssemblyInfo.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  GTAScriptHook.vcxproj -> H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\Debug\GTAScriptHook.dll

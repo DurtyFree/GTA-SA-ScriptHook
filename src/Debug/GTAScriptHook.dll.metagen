@@ -1,0 +1,394 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly GTAScriptHook, Version=2019.11.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly GenerateBuildID, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class GTA.SVector: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Single, Single, Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Single pX : Public
+    Single pY : Public
+    Single pZ : Public
+Struct CVector: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct CMatrix: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct CMatrix_Padded: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Class GTA.DrawRadarEventArgs: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.EventArgs
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    DrawArea(Single, Single, Single, Single, Color): PrivateScope, Public, HideBySig
+Class GTA.CClientRadarAreaManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Fields:
+    Boolean processing : Public
+  Events:
+    System.EventHandler`1[GTA.DrawRadarEventArgs] OnDrawRadar: SpecialName
+  Methods:
+    Delete(CClientRadarArea): PrivateScope, Public, HideBySig
+    DeleteAll(): PrivateScope, Public, HideBySig
+    GetDimension(): PrivateScope, Public, HideBySig
+    SetDimension(UInt16): PrivateScope, Public, HideBySig
+    add_OnDrawRadar(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_OnDrawRadar(EventHandler`1): PrivateScope, Public, HideBySig, SpecialName
+    raise_OnDrawRadar(Object, DrawRadarEventArgs): PrivateScope, Public, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class GTA.CClientRadarArea: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Interfaces:
+    System.IDisposable
+  Properties:
+    GTA.CClientRadarAreaManager Manager 'get set' : 
+    GTA.SVector Size 'get set' : 
+    GTA.SVector Position 'get set' : 
+  Methods:
+    Unlink(): PrivateScope, Public, HideBySig
+    GetColor(): PrivateScope, Public, HideBySig
+    SetColor(Byte, Byte, Byte, Byte): PrivateScope, Public, HideBySig
+    SetColor(UInt32 IsLong): PrivateScope, Public, HideBySig
+    IsFlashing(): PrivateScope, Public, HideBySig
+    SetFlashing(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetDimension(UInt16): PrivateScope, Public, HideBySig
+    RelateDimension(UInt16): PrivateScope, Public, HideBySig
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    set_Position(SVector): PrivateScope, Public, HideBySig, SpecialName
+    get_Size(): PrivateScope, Public, HideBySig, SpecialName
+    set_Size(SVector): PrivateScope, Public, HideBySig, SpecialName
+    get_Manager(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_Manager(CClientRadarAreaManager): PrivateScope, Public, Static, HideBySig, SpecialName
+    Dispose(): PrivateScope, Public, Final, Virtual, HideBySig
+Class GTA.RadarHook: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Install(): PrivateScope, Public, Static, HideBySig
+Class GTA.BaseScript: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean DisableKeyBindings 'get set' : 
+  Methods:
+    OnStart(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Run(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    get_DisableKeyBindings(): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_DisableKeyBindings(Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig, SpecialName
+    Wait(Int32): PrivateScope, Public, HideBySig
+    Wait(): PrivateScope, Public, HideBySig
+    BindKey(Keys, Action): PrivateScope, Public, HideBySig
+    ProcessKeyBindings(): PrivateScope, Public, HideBySig
+Class GTA.ScriptInitializer: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OnGameStart(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class GTA.ScriptPostInitializer: AutoLayout, AnsiClass, Class, Public, Abstract, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OnGameStart(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+Class GTA.ScriptLoader: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.MarshalByRefObject
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean GameInitialized 'get set' : 
+  Methods:
+    InitializeLifetimeService(): PrivateScope, Public, Virtual, HideBySig
+    get_GameInitialized(): PrivateScope, Public, HideBySig, SpecialName
+    set_GameInitialized(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    LoadAssembly(Assembly): PrivateScope, Public, HideBySig
+    LoadScript(BaseScript): PrivateScope, Public, Static, HideBySig
+Class GTA.ScriptDomain: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    MarshalInDefaultDomain(CrossAppDomainDelegate): PrivateScope, Public, Static, HideBySig
+Struct ControllerState: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    Int16 LeftStickX : Public
+    Int16 LeftStickY : Public
+    Int16 RightStickX : Public
+    Int16 RightStickY : Public
+    Int16 LeftShoulder1 : Public
+    Int16 LeftShoulder2 : Public
+    Int16 RightShoulder1 : Public
+    Int16 RightShoulder2 : Public
+    Int16 DPadUp : Public
+    Int16 DPadDown : Public
+    Int16 DPadLeft : Public
+    Int16 DPadRight : Public
+    Int16 Start : Public
+    Int16 Select : Public
+    Int16 ButtonSquare : Public
+    Int16 ButtonTriangle : Public
+    Int16 ButtonCross : Public
+    Int16 ButtonCircle : Public
+    Int16 ShockButtonL : Public
+    Int16 ShockButtonR : Public
+    Int16 m_bChatIndicated : Public
+    Int16 m_bPedWalk : Public
+    Int16 m_bVehicleMouseLook : Public
+    Int16 m_bRadioTrackSkip : Public
+Class Pad: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(CPadSAInterface*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    DisableCircle(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    DisableStatDisplay(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    GetCurrentControllerState(CControllerState*): PrivateScope, Public, HideBySig
+    GetLastControllerState(CControllerState*): PrivateScope, Public, HideBySig
+    SetCurrentControllerState(CControllerState*): PrivateScope, Public, HideBySig
+    SetLastControllerState(CControllerState*): PrivateScope, Public, HideBySig
+    GetCCurrentControllerState(): PrivateScope, Public, HideBySig
+    GetCLastControllerState(): PrivateScope, Public, HideBySig
+    SetCCurrentControllerState(ControllerState): PrivateScope, Public, HideBySig
+    SetCLastControllerState(ControllerState): PrivateScope, Public, HideBySig
+    Store(): PrivateScope, Public, HideBySig
+    Restore(): PrivateScope, Public, HideBySig
+    IsEnabled(): PrivateScope, Public, HideBySig
+    Disable(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    Clear(): PrivateScope, Public, HideBySig
+    GetInterface(): PrivateScope, Public, HideBySig
+    SetHornHistoryValue(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    GetAverageWeapon(): PrivateScope, Public, HideBySig
+    SetLastTimeTouched(UInt32 IsLong): PrivateScope, Public, HideBySig
+    SetControlMode(Byte): PrivateScope, Public, HideBySig
+    GetShakeFreq(): PrivateScope, Public, HideBySig
+Class GTA.GameVersion: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    System.String VersionName 'get ' : 
+    SByte Region 'get ' IsSignUnspecifiedByte : 
+    Int32 VersionNumber 'get ' : 
+  Methods:
+    Detect(): PrivateScope, Public, Static, HideBySig
+    get_VersionNumber(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Region(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_VersionName(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class GTA.Log: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    GTA.LogLevel CurrentLogLevel 'set' : 
+  Events:
+    System.Action`2[GTA.LogLevel,System.String] EventWritten: SpecialName
+  Methods:
+    Initialize(String, LogLevel, Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig
+    MayWriteType(LogLevel): PrivateScope, Public, Static, HideBySig
+    Debug(String): PrivateScope, Public, Static, HideBySig
+    Info(String): PrivateScope, Public, Static, HideBySig
+    Warn(String): PrivateScope, Public, Static, HideBySig
+    Error(Exception): PrivateScope, Public, Static, HideBySig
+    Error(String): PrivateScope, Public, Static, HideBySig
+    add_EventWritten(Action`2): PrivateScope, Public, Static, HideBySig, SpecialName
+    remove_EventWritten(Action`2): PrivateScope, Public, Static, HideBySig, SpecialName
+    set_CurrentLogLevel(LogLevel): PrivateScope, Public, Static, HideBySig, SpecialName
+Struct GTA.LogLevel: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
+  :System.Enum
+  Fields:
+    Int32 value__ : Public, SpecialName, RTSpecialName
+    GTA.LogLevel None = 0 : Public, Static, Literal, HasDefault
+    GTA.LogLevel Error = 1 : Public, Static, Literal, HasDefault
+    GTA.LogLevel Warning = 2 : Public, Static, Literal, HasDefault
+    GTA.LogLevel Info = 4 : Public, Static, Literal, HasDefault
+    GTA.LogLevel Debug = 8 : Public, Static, Literal, HasDefault
+Class GTA.GTAUtils: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Methods:
+    ConvertIntAsFloat(Int32): PrivateScope, Public, Static, HideBySig
+    ConvertFloatAsInt(Single): PrivateScope, Public, Static, HideBySig
+    GetGameTimer(): PrivateScope, Public, Static, HideBySig
+    Wait(Int32): PrivateScope, Public, Static, HideBySig
+    SetPlayerWeaponSlot(Int32): PrivateScope, Public, Static, HideBySig
+    LoadGameNatively(): PrivateScope, Public, Static, HideBySig
+Class GTA.VarPointer: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 ID   'get ' : 
+    Int32 Value 'get set' : 
+  Methods:
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(Int32): PrivateScope, Public, HideBySig, SpecialName
+    get_ID(): PrivateScope, Public, HideBySig, SpecialName
+    op_Explicit(VarPointer): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Explicit(VarPointer): PrivateScope, Public, Static, HideBySig, SpecialName
+Struct GTA.Internal.Parameter: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+    Void .ctor(Byte[]): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(GTA.Internal.GlobalVariable): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(GTA.VarPointer): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Single): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    System.Object _preVal : Public
+    Int32 _dataType : Public
+  Methods:
+    op_Implicit(Byte[]): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(Boolean(HasFieldMarshal)): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(GlobalVariable): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(VarPointer): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(String): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(Single): PrivateScope, Public, Static, HideBySig, SpecialName
+    op_Implicit(Int32): PrivateScope, Public, Static, HideBySig, SpecialName
+Class GTA.Internal.Function: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Call(UInt32, Parameter[]): PrivateScope, Public, Static, HideBySig
+    Call(UInt32, Parameter[]): PrivateScope, Public, Static, HideBySig
+    RegisterType(Type, Func`2): PrivateScope, Public, Static, HideBySig
+Class GTA.Internal.GlobalVariable: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(UInt16): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 Value 'get set' : 
+    UInt16 ID  'get ' : 
+  Methods:
+    Get(UInt16): PrivateScope, Public, Static, HideBySig
+    get_ID(): PrivateScope, Public, HideBySig, SpecialName
+    get_Value(): PrivateScope, Public, HideBySig, SpecialName
+    set_Value(Int32): PrivateScope, Public, HideBySig, SpecialName
+    ToString(): PrivateScope, Public, Virtual, HideBySig
+Struct GTA.C3DMarkerSAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Class GTA.GTA3DMarker: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(GTA.C3DMarkerSAInterface*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Int32 ID   'get ' : 
+    Boolean Exists 'get set' : 
+    Boolean CanPulse 'set' : 
+    GTA.SVector Position 'get set' : 
+    Int32 Type 'get ' : 
+  Methods:
+    GetInterface(): PrivateScope, Public, HideBySig
+    Disable(): PrivateScope, Public, HideBySig
+    get_Type(): PrivateScope, Public, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    set_Position(SVector): PrivateScope, Public, HideBySig, SpecialName
+    GetNormalPosition(): PrivateScope, Public, HideBySig
+    set_CanPulse(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_Exists(): PrivateScope, Public, HideBySig, SpecialName
+    set_Exists(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig, SpecialName
+    get_ID(): PrivateScope, Public, HideBySig, SpecialName
+    SetZRotation(Int32): PrivateScope, Public, HideBySig
+    SetAlpha(Int32): PrivateScope, Public, HideBySig
+Class GTA.GTA3DMarkers: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetMarkers(): PrivateScope, Public, Static, HideBySig
+Struct GTA.CEntitySAInterfaceVTBL: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CReferences: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CSimpleTransformSAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CPlaceableSAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CEntitySAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CPhysicalSAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CObjectSAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Struct GTA.CPickupSAInterface: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+Class GTA.GTAPickup: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(GTA.CPickupSAInterface*): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Boolean Exists 'get ' : 
+    GTA.SVector Position 'get set' : 
+    Int32 CObjectPtr 'get ' : 
+    Int32 Model 'get ' : 
+  Methods:
+    GetInterface(): PrivateScope, Public, HideBySig
+    get_Model(): PrivateScope, Public, HideBySig, SpecialName
+    get_CObjectPtr(): PrivateScope, Public, HideBySig, SpecialName
+    get_Position(): PrivateScope, Public, HideBySig, SpecialName
+    set_Position(SVector): PrivateScope, Public, HideBySig, SpecialName
+    get_Exists(): PrivateScope, Public, HideBySig, SpecialName
+    SetVisible(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetRotation(Int32, Int32, Int32): PrivateScope, Public, HideBySig
+Class GTA.GTAPickups: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    GetPickups(): PrivateScope, Public, Static, HideBySig
+Class GTA.NativeFunctions: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    OverridePedSpawn(Int32[]): PrivateScope, Public, Static, HideBySig
+    PlayFrontendAudio(Int32): PrivateScope, Public, Static, HideBySig
+    GetCameraFOV(): PrivateScope, Public, Static, HideBySig
+    SetCameraFOV(Single): PrivateScope, Public, Static, HideBySig
+    GetScreenCoords(SVector): PrivateScope, Public, Static, HideBySig
+Class GTA.ScriptProcessor: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    GTA.ScriptProcessor Instance 'get ' : 
+    System.String HookVersion 'get ' : 
+    Byte[] KeyBuffer 'get ' : 
+  Events:
+    System.Action`2[GTA.BaseScript,System.Exception] ScriptCrashed: SpecialName
+    System.Action`1[System.UInt32] RawTick: SpecialName
+  Methods:
+    add_RawTick(Action`1): PrivateScope, Public, HideBySig, SpecialName
+    remove_RawTick(Action`1): PrivateScope, Public, HideBySig, SpecialName
+    add_ScriptCrashed(Action`2): PrivateScope, Public, HideBySig, SpecialName
+    remove_ScriptCrashed(Action`2): PrivateScope, Public, HideBySig, SpecialName
+    Initialize(): PrivateScope, Public, Static, HideBySig
+    get_KeyBuffer(): PrivateScope, Public, HideBySig, SpecialName
+    get_HookVersion(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Instance(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class GTA.TextHook: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Get(String): PrivateScope, Public, Static, HideBySig
+    RemoveCache(String): PrivateScope, Public, Static, HideBySig
+    RegisterCallback(Func`2): PrivateScope, Public, Static, HideBySig
+    RegisterFilter(Func`2): PrivateScope, Public, Static, HideBySig
+Class GTA.Pool: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  Properties:
+    GTA.Pool TXD 'get ' : 
+    GTA.Pool Object 'get ' : 
+    GTA.Pool Vehicle 'get ' : 
+    GTA.Pool Ped 'get ' : 
+  Methods:
+    GetAllPointers(): PrivateScope, Public, HideBySig
+    GetAllHandles(): PrivateScope, Public, HideBySig
+    HandleToPtr(Int32): PrivateScope, Public, HideBySig
+    PtrToHandle(IntPtr): PrivateScope, Public, HideBySig
+    GetAtIndex(Int32): PrivateScope, Public, HideBySig
+    get_Ped(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Vehicle(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_Object(): PrivateScope, Public, Static, HideBySig, SpecialName
+    get_TXD(): PrivateScope, Public, Static, HideBySig, SpecialName
+Class GTA.Internal.OpcodeMap: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class GTA.TXD: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(IntPtr): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(System.String): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Boolean loaded : Public
+  Methods:
+    LockBitmap(UInt16, String): PrivateScope, Public, Static, HideBySig
+    LockBitmap(IntPtr): PrivateScope, Public, Static, HideBySig
+    LockRawBitmap(IntPtr): PrivateScope, Public, Static, HideBySig
+    UnlockBitmap(UInt16, String): PrivateScope, Public, Static, HideBySig
+    UnlockBitmap(IntPtr): PrivateScope, Public, Static, HideBySig
+    Load(String): PrivateScope, Public, HideBySig
+    LoadID(IntPtr): PrivateScope, Public, HideBySig
+    Import(UInt16): PrivateScope, Public, HideBySig
+    TextureNames(): PrivateScope, Public, HideBySig
+Class GTA.RenderWare: AutoLayout, AnsiClass, Class, Public
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    Init(): PrivateScope, Public, Static, HideBySig
+    CreateTexture32(Int32, Int32): PrivateScope, Public, Static, HideBySig

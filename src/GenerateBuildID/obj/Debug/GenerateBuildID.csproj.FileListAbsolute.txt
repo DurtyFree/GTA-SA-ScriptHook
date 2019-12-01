@@ -1,0 +1,4 @@
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GenerateBuildID\bin\Debug\GenerateBuildID.exe
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GenerateBuildID\bin\Debug\GenerateBuildID.pdb
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GenerateBuildID\obj\Debug\GenerateBuildID.exe
+H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\GenerateBuildID\obj\Debug\GenerateBuildID.pdb

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Scripting">
+      <UniqueIdentifier>{1be6e643-dae0-454c-94d4-19b568418143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SA">
+      <UniqueIdentifier>{de38b7cb-c591-4211-adf1-67bd256620d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Fibers">
+      <UniqueIdentifier>{2c71388d-cb7a-4c2d-9410-20e1282d79a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Scripting">
+      <UniqueIdentifier>{6460a5e0-40ee-47b5-bd4a-b3b023dbcc39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SA">
+      <UniqueIdentifier>{875ab8c8-df2a-4d77-a61b-ac80c914296b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameVersion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GTAUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptDomain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextHook.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalCalls.cpp">
+      <Filter>Source Files\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeMap.cpp">
+      <Filter>Source Files\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Script.cpp">
+      <Filter>Source Files\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="VarPointer.cpp">
+      <Filter>Source Files\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="CClientRadarArea.cpp">
+      <Filter>Source Files\SA</Filter>
+    </ClCompile>
+    <ClCompile Include="CClientRadarAreaManager.cpp">
+      <Filter>Source Files\SA</Filter>
+    </ClCompile>
+    <ClCompile Include="CPadSA.cpp">
+      <Filter>Source Files\SA</Filter>
+    </ClCompile>
+    <ClCompile Include="LegacyCrap.cpp">
+      <Filter>Source Files\SA</Filter>
+    </ClCompile>
+    <ClCompile Include="Pool.cpp">
+      <Filter>Source Files\SA</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderWareSA.cpp">
+      <Filter>Source Files\SA</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Fibers.h">
+      <Filter>Source Files\Fibers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameVersion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GTAUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptDomain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextHook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InternalCalls.h">
+      <Filter>Header Files\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeMap.h">
+      <Filter>Header Files\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Script.h">
+      <Filter>Header Files\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="VarPointer.h">
+      <Filter>Header Files\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="CClientRadarAreas.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+    <ClInclude Include="CPadSA.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyCrap.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeTypes.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+    <ClInclude Include="Pool.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderWare.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderWareSA.h">
+      <Filter>Header Files\SA</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

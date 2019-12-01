@@ -1,0 +1,3 @@
+﻿  dllmain.cpp
+cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  GTAScriptLoader.vcxproj -> H:\DevProjects\GIT_Projects\gtadotnet\scripthookv2\Debug\GTAScriptLoader.dll

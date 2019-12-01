@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{17449BE1-D03A-4C5C-BDAA-F3295BC3738A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GTA</RootNamespace>
+    <AssemblyName>GTAScriptAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;GTA_SA</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'GTA IV Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\GTA IV Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IVDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\IVDebug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;GTA_IV;GTA_SCO</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IIIDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\IIIDebug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;GTA_III</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseClasses\CrashWarning.cs" />
+    <Compile Include="BaseClasses\Memory.cs" />
+    <Compile Include="BaseClasses\ObjectCache.cs" />
+    <Compile Include="BaseClasses\RotationMatrix.cs" />
+    <Compile Include="BaseClasses\ReturnTypes.cs" />
+    <Compile Include="BaseClasses\Script.cs" />
+    <Compile Include="Compatibility\SanAndreasScriptHook.cs" />
+    <Compile Include="GTAClasses\Blip.cs" />
+    <Compile Include="BaseClasses\HandleObject.cs" />
+    <Compile Include="BaseClasses\Vector3.cs" />
+    <Compile Include="GTAClasses\Camera.cs" />
+    <Compile Include="GTAClasses\Controls.cs" />
+    <Compile Include="GTAClasses\DataTypes\IDs.cs" />
+    <Compile Include="GTAClasses\DataTypes\Structs.cs" />
+    <Compile Include="GTAClasses\Draw.cs" />
+    <Compile Include="GTAClasses\Game.cs" />
+    <Compile Include="GTAClasses\Group.cs" />
+    <Compile Include="GTAClasses\Model.cs" />
+    <Compile Include="GTAClasses\Pickup.cs" />
+    <Compile Include="GTAClasses\Ped.cs" />
+    <Compile Include="GTAClasses\Player.cs" />
+    <Compile Include="GTAClasses\Relationship.cs" />
+    <Compile Include="GTAClasses\Sphere.cs" />
+    <Compile Include="GTAClasses\Tasks.cs" />
+    <Compile Include="GTAClasses\Vehicle.cs" />
+    <Compile Include="GTAClasses\Weapons.cs" />
+    <Compile Include="GTAClasses\World.cs" />
+    <Compile Include="HighLevel\BaseConsole.cs" />
+    <Compile Include="HighLevel\Cheats.cs" />
+    <Compile Include="HighLevel\Console.cs" />
+    <Compile Include="HighLevel\Defer.cs" />
+    <Compile Include="HighLevel\TextDraw.cs" />
+    <Compile Include="TestScript1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GTAScriptHook\GTAScriptHook.vcxproj">
+      <Project>{104f4394-5036-41f9-9c5f-e77e3a5ca03a}</Project>
+      <Name>GTAScriptHook</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
