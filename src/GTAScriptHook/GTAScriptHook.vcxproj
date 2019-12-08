@@ -125,7 +125,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "$(TargetPath)" "$(SolutionPath)\Output\GTAScriptHook.dll"
+      <Command>xcopy /y "$(TargetPath)" "$(SolutionDir)Output\GTAScriptHook.dll*"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

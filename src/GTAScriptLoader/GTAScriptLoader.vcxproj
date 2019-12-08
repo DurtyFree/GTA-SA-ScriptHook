@@ -84,7 +84,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y "$(TargetPath)" "$(SolutionPath)\Output\GTAScriptLoader.asi"
+      <Command>xcopy /y "$(TargetPath)" "$(SolutionDir)Output\GTAScriptLoader.asi*"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

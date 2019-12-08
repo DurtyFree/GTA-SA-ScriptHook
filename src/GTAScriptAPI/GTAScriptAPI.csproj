@@ -139,6 +139,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy /y "$(TargetPath)" "$(SolutionPath)\Output\GTAScriptAPI.dll"</PostBuildEvent>
+    <PostBuildEvent>xcopy /y "$(TargetPath)" "$(SolutionDir)Output\GTAScriptAPI.dll*"</PostBuildEvent>
   </PropertyGroup>
 </Project>
