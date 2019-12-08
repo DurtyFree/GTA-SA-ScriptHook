@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GTA
 {
@@ -9,19 +6,13 @@ namespace GTA
     {
         static World()
         {
-            _carList = new List<Vehicle>();
-            _pedList = new List<Ped>();
+            carList = new List<Vehicle>();
+            pedList = new List<Ped>();
         }
 
-        public static Ped CreatePed(PedID model, Vector3 position, int pedtype)
-        {
-            return CreatePed((int)model, position, pedtype);
-        }
+        public static Ped CreatePed(PedID model, Vector3 position, int pedtype) => CreatePed((int)model, position, pedtype);
 
-        public static Vehicle CreateVehicle(CarID model, Vector3 position)
-        {
-            return CreateVehicle((int)model, position);
-        }
+        public static Vehicle CreateVehicle(CarID model, Vector3 position) => CreateVehicle((int)model, position);
 
         public static Ped CreatePed(Model model, Vector3 position, int pedtype)
         {
@@ -59,20 +50,20 @@ namespace GTA
             return new Vector3(position.X, position.Y, z);
         }
 
-        static List<Vehicle> _carList;
+        static readonly List<Vehicle> carList;
 
         public static List<Vehicle> GetAllVehicles()
         {
             var handles = Pool.Vehicle.GetAllHandles();
             //var vehicles = new List<Vehicle>();
-            _carList.Clear();
+            carList.Clear();
 
             foreach (var handle in handles)
             {
-                _carList.Add(ObjectCache.GetVehicle(handle));
+                carList.Add(ObjectCache.GetVehicle(handle));
             }
 
-            return _carList;
+            return carList;
 
 #if LEGACYPOOL
             var retval = new List<Vehicle>();
@@ -98,20 +89,20 @@ namespace GTA
 #endif
         }
 
-        static List<Ped> _pedList;
+        static readonly List<Ped> pedList;
 
         public static List<Ped> GetAllPeds()
         {
             var handles = Pool.Ped.GetAllHandles();
             //var peds = new List<Ped>();
-            _pedList.Clear();
+            pedList.Clear();
 
             foreach (var handle in handles)
             {
-                _pedList.Add(ObjectCache.GetPed(handle));
+                pedList.Add(ObjectCache.GetPed(handle));
             }
 
-            return _pedList;
+            return pedList;
 
 #if LEGACYPOOL
             var retval = new List<Ped>();

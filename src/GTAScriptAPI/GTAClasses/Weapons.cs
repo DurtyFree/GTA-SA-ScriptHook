@@ -20,7 +20,7 @@ namespace GTA
         {
             get
             {
-                return type;
+                return this.type;
             }
         }
 
@@ -28,35 +28,35 @@ namespace GTA
         {
             get
             {
-                if (!Internal.Function.Call(0x0491, owner, (int)type))
+                if (!Internal.Function.Call(0x0491, this.owner, (int)this.type))
                 {
                     return -1;
                 }
 
-                return Internal.Function.Call<int>(0x041a, owner, (int)type);
+                return Internal.Function.Call<int>(0x041a, this.owner, (int)this.type);
             }
             set
             {
                 int type = (int)this.type;
 
-                if (Internal.Function.Call(0x0491, owner, type))
+                if (Internal.Function.Call(0x0491, this.owner, type))
                 {
                     if (value == 0)
                     {
-                        Internal.Function.Call(0x0555, owner, type);
+                        Internal.Function.Call(0x0555, this.owner, type);
                     }
                     else
                     {
-                        Internal.Function.Call(0x017b, owner, type, value);
+                        Internal.Function.Call(0x017b, this.owner, type, value);
                     }
                 }
                 else
                 {
                     if (value != 0)
                     {
-                        Load();
+                        this.Load();
 
-                        Internal.Function.Call(0x01b2, owner, type, value);
+                        Internal.Function.Call(0x01b2, this.owner, type, value);
                     }
                 }
             }
@@ -64,7 +64,7 @@ namespace GTA
 
         public void Load()
         {
-            Model model = new Model(Model);
+            Model model = new Model(this.Model);
             model.Load();
         }
 
@@ -72,7 +72,7 @@ namespace GTA
         {
             get
             {
-                return type;
+                return this.type;
             }
         }
 
@@ -80,7 +80,7 @@ namespace GTA
         {
             get
             {
-                int modelID = Internal.Function.Call<int>(0x0781, (int)type);
+                int modelID = Internal.Function.Call<int>(0x0781, (int)this.type);
 
                 return modelID;
             }
@@ -90,7 +90,7 @@ namespace GTA
         {
             get
             {
-                int slotID = Internal.Function.Call<int>(0x0782, (int)type);
+                int slotID = Internal.Function.Call<int>(0x0782, (int)this.type);
 
                 return slotID;
             }
@@ -100,13 +100,13 @@ namespace GTA
         {
             int type = (int)this.type;
 
-            if (!Internal.Function.Call(0x0491, owner, type))
+            if (!Internal.Function.Call(0x0491, this.owner, type))
             {
                 // TODO: perhaps use weapon in this weapon group?
                 return;
             }
 
-            Internal.Function.Call(0x01b9, owner, type);
+            Internal.Function.Call(0x01b9, this.owner, type);
         }
     }
 
@@ -124,17 +124,17 @@ namespace GTA
         {
             WeaponType retval = null;
 
-            if (weaponCache == null)
+            if (this.weaponCache == null)
             {
-                weaponCache = new Dictionary<WeaponID, WeaponType>();
+                this.weaponCache = new Dictionary<WeaponID, WeaponType>();
             }
-            else if (weaponCache.TryGetValue(id, out retval))
+            else if (this.weaponCache.TryGetValue(id, out retval))
             {
                 return retval;
             }
 
-            retval = new WeaponType(character, id);
-            weaponCache.Add(id, retval);
+            retval = new WeaponType(this.character, id);
+            this.weaponCache.Add(id, retval);
 
             return retval;
         }
@@ -151,19 +151,19 @@ namespace GTA
 
         public void RemoveAll()
         {
-            Internal.Function.Call(0x048f, character);
+            Internal.Function.Call(0x048f, this.character);
         }
 
         public void Select(WeaponID weapon)
         {
-            FromID(weapon).Select();
+            this.FromID(weapon).Select();
         }
 
         public WeaponType Current
         {
             get
             {
-                return FromID(GTA.Internal.Function.Call<WeaponID>(0x0470, character));
+                return this.FromID(GTA.Internal.Function.Call<WeaponID>(0x0470, this.character));
             }
         }
 
@@ -171,7 +171,7 @@ namespace GTA
         {
             get
             {
-                return GTA.Internal.Function.Call<WeaponID>(0x0470, character);
+                return GTA.Internal.Function.Call<WeaponID>(0x0470, this.character);
             }
         }
 
@@ -180,7 +180,7 @@ namespace GTA
             VarPointer type = new VarPointer();
             VarPointer dummy = new VarPointer();
 
-            Internal.Function.Call(0x04B8, character, slot, type, dummy, dummy);
+            Internal.Function.Call(0x04B8, this.character, slot, type, dummy, dummy);
 
             return this[(WeaponID)type.Value];
         }
@@ -189,7 +189,7 @@ namespace GTA
         {
             get
             {
-                return FromID(id);
+                return this.FromID(id);
             }
         }
 
@@ -198,7 +198,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Gift_Dildo1);
+                return this.FromID(WeaponID.Gift_Dildo1);
             }
         }
 
@@ -206,7 +206,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Gift_Dildo2);
+                return this.FromID(WeaponID.Gift_Dildo2);
             }
         }
 
@@ -214,7 +214,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Gift_Vibe1);
+                return this.FromID(WeaponID.Gift_Vibe1);
             }
         }
 
@@ -222,7 +222,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Gift_Vibe2);
+                return this.FromID(WeaponID.Gift_Vibe2);
             }
         }
 
@@ -230,7 +230,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Gift_Flowers);
+                return this.FromID(WeaponID.Gift_Flowers);
             }
         }
 
@@ -238,7 +238,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Gift_Cane);
+                return this.FromID(WeaponID.Gift_Cane);
             }
         }
 
@@ -246,7 +246,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Unarmed);
+                return this.FromID(WeaponID.Melee_Unarmed);
             }
         }
 
@@ -254,7 +254,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_BrassKnuckles);
+                return this.FromID(WeaponID.Melee_BrassKnuckles);
             }
         }
 
@@ -262,7 +262,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_GolfClub);
+                return this.FromID(WeaponID.Melee_GolfClub);
             }
         }
 
@@ -270,7 +270,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Nightstick);
+                return this.FromID(WeaponID.Melee_Nightstick);
             }
         }
 
@@ -278,7 +278,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Knife);
+                return this.FromID(WeaponID.Melee_Knife);
             }
         }
 
@@ -286,7 +286,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Bat);
+                return this.FromID(WeaponID.Melee_Bat);
             }
         }
 
@@ -294,7 +294,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Shovel);
+                return this.FromID(WeaponID.Melee_Shovel);
             }
         }
 
@@ -302,7 +302,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_PoolCue);
+                return this.FromID(WeaponID.Melee_PoolCue);
             }
         }
 
@@ -310,7 +310,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Katana);
+                return this.FromID(WeaponID.Melee_Katana);
             }
         }
 
@@ -318,7 +318,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Melee_Chainsaw);
+                return this.FromID(WeaponID.Melee_Chainsaw);
             }
         }
 
@@ -326,7 +326,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Thrown_Grenades);
+                return this.FromID(WeaponID.Thrown_Grenades);
             }
         }
 
@@ -334,7 +334,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Thrown_Teargas);
+                return this.FromID(WeaponID.Thrown_Teargas);
             }
         }
 
@@ -342,7 +342,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Thrown_Molotovs);
+                return this.FromID(WeaponID.Thrown_Molotovs);
             }
         }
 
@@ -350,7 +350,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Thrown_Satchel);
+                return this.FromID(WeaponID.Thrown_Satchel);
             }
         }
 
@@ -358,7 +358,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Satchel_Detonator);
+                return this.FromID(WeaponID.Satchel_Detonator);
             }
         }
 
@@ -366,7 +366,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Pistol_Colt45);
+                return this.FromID(WeaponID.Pistol_Colt45);
             }
         }
 
@@ -374,7 +374,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Pistol_Silenced);
+                return this.FromID(WeaponID.Pistol_Silenced);
             }
         }
 
@@ -382,7 +382,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Pistol_Deagle);
+                return this.FromID(WeaponID.Pistol_Deagle);
             }
         }
 
@@ -390,7 +390,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Shotgun_Shotgun);
+                return this.FromID(WeaponID.Shotgun_Shotgun);
             }
         }
 
@@ -398,7 +398,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Shotgun_Sawnoff);
+                return this.FromID(WeaponID.Shotgun_Sawnoff);
             }
         }
 
@@ -406,7 +406,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Shotgun_SPAS12);
+                return this.FromID(WeaponID.Shotgun_SPAS12);
             }
         }
 
@@ -414,7 +414,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.SMG_Uzi);
+                return this.FromID(WeaponID.SMG_Uzi);
             }
         }
 
@@ -422,7 +422,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.SMG_MP5);
+                return this.FromID(WeaponID.SMG_MP5);
             }
         }
 
@@ -430,7 +430,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.SMG_Tec9);
+                return this.FromID(WeaponID.SMG_Tec9);
             }
         }
 
@@ -438,7 +438,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Assault_AK47);
+                return this.FromID(WeaponID.Assault_AK47);
             }
         }
 
@@ -446,7 +446,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Assault_M4);
+                return this.FromID(WeaponID.Assault_M4);
             }
         }
 
@@ -454,7 +454,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Rifle_Country);
+                return this.FromID(WeaponID.Rifle_Country);
             }
         }
 
@@ -462,7 +462,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Rifle_Sniper);
+                return this.FromID(WeaponID.Rifle_Sniper);
             }
         }
 
@@ -470,7 +470,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Heavy_RPG);
+                return this.FromID(WeaponID.Heavy_RPG);
             }
         }
 
@@ -478,7 +478,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Heavy_HSRPG);
+                return this.FromID(WeaponID.Heavy_HSRPG);
             }
         }
 
@@ -486,7 +486,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Heavy_Flamethrower);
+                return this.FromID(WeaponID.Heavy_Flamethrower);
             }
         }
 
@@ -494,7 +494,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Heavy_Minigun);
+                return this.FromID(WeaponID.Heavy_Minigun);
             }
         }
 
@@ -502,7 +502,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Misc_Spraycan);
+                return this.FromID(WeaponID.Misc_Spraycan);
             }
         }
 
@@ -510,7 +510,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Misc_FireExt);
+                return this.FromID(WeaponID.Misc_FireExt);
             }
         }
 
@@ -518,7 +518,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Misc_Camera);
+                return this.FromID(WeaponID.Misc_Camera);
             }
         }
 
@@ -526,7 +526,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Apparel_NVGoggles);
+                return this.FromID(WeaponID.Apparel_NVGoggles);
             }
         }
 
@@ -534,7 +534,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Apparel_ThermGoggles);
+                return this.FromID(WeaponID.Apparel_ThermGoggles);
             }
         }
 
@@ -542,7 +542,7 @@ namespace GTA
         {
             get
             {
-                return FromID(WeaponID.Apparel_Parachute);
+                return this.FromID(WeaponID.Apparel_Parachute);
             }
         }
     }

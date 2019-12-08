@@ -11,7 +11,7 @@ namespace GTA
 
         public TextDictionary()
         {
-            internalDict = new Dictionary<string, string>();
+            this.internalDict = new Dictionary<string, string>();
         }
 
         public string this[string key]
@@ -21,13 +21,13 @@ namespace GTA
                 // compatibility requires key to be ToUpper-ed
                 key = key.ToUpper();
 
-                return internalDict[key];
+                return this.internalDict[key];
             }
             set
             {
                 key = key.ToUpper();
 
-                internalDict[key] = value;
+                this.internalDict[key] = value;
                 TextHook.RemoveCache(key);
             }
         }
@@ -35,7 +35,7 @@ namespace GTA
         public bool ContainsKey(string key)
         {
             key = key.ToUpper();
-            return internalDict.ContainsKey(key);
+            return this.internalDict.ContainsKey(key);
         }
     }
 

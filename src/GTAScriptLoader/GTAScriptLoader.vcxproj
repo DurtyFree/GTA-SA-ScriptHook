@@ -84,8 +84,8 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy /y "$(TargetPath)" "$(SolutionPath)\Output\GTAScriptLoader.asi"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

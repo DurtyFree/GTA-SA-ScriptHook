@@ -12,25 +12,25 @@ namespace GTA
 
         public DeferredScript()
         {
-            Tick += new EventHandler(DeferredScript_OnTick);
-            Interval = 100;
+            Tick += new EventHandler(this.DeferredScript_OnTick);
+            this.Interval = 100;
         }
 
         public void Assign(Action action)
         {
-            _action = action;
+            this._action = action;
         }
 
         void DeferredScript_OnTick(object sender, EventArgs e)
         {
-            if (_action == null)
+            if (this._action == null)
             {
                 return;
             }
 
             try
             {
-                _action();
+                this._action();
             }
             catch (Exception ex)
             {
@@ -39,14 +39,14 @@ namespace GTA
                 Initialize.Log("Exception caused in deferred script: " + ex.ToString());
             }
 
-            _action = null;
+            this._action = null;
         }
 
         public bool Busy
         {
             get
             {
-                return (_action == null) ? false : true;
+                return (this._action == null) ? false : true;
             }
         }
     }
@@ -59,7 +59,7 @@ namespace GTA
         public Defer()
         {
             Actions = new List<Action>();
-            Tick += new EventHandler(Defer_OnTick);
+            Tick += new EventHandler(this.Defer_OnTick);
 
             for (int i = 0; i < 5; i++)
             {
@@ -87,7 +87,11 @@ namespace GTA
                 foreach (var frame in trace.GetFrames())
                 {
                     var method = frame.GetMethod();
-                    if (method.Name.Equals("DeferScript")) continue;
+                    if (method.Name.Equals("DeferScript"))
+                    {
+                        continue;
+                    }
+
                     worker.Source = string.Format("{0}::{1}",
                         method.ReflectedType != null ? method.ReflectedType.Name : string.Empty,
                         method.Name);

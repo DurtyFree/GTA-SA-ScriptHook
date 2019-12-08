@@ -375,11 +375,11 @@ namespace GTA {
 
 			/*String^ output = "Script buffer: ";
 
-            for (int i = 0; i < buf_pos; i++) {
-                    output += ScriptBuf[i].ToString("X2") + " ";
-            }
+			for (int i = 0; i < buf_pos; i++) {
+					output += ScriptBuf[i].ToString("X2") + " ";
+			}
 
-            Log::Debug(output);*/
+			Log::Debug(output);*/
 
 			int result = ExecuteBuffer(ScriptBuf, LocalVars, buf_pos, GameVersion::VersionNumber);
 

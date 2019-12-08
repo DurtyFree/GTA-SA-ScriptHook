@@ -11,47 +11,47 @@ namespace GTA
 
         internal Tasks(Ped ped)
         {
-            _ped = ped;
+            this._ped = ped;
         }
 
         public void AimAt(Ped ped, int duration)
         {
-            Internal.Function.Call(0x0635, _ped, ped, duration);
+            Internal.Function.Call(0x0635, this._ped, ped, duration);
         }
 
         public void AimAt(Vector3 position, int duration)
         {
-            Internal.Function.Call(0x0667, _ped, position, duration);
+            Internal.Function.Call(0x0667, this._ped, position, duration);
         }
 
         public void Crouch(bool crouched)
         {
-            Internal.Function.Call(0x04eb, _ped, crouched);
+            Internal.Function.Call(0x04eb, this._ped, crouched);
         }
 
         public void Die()
         {
-            Internal.Function.Call(0x0762, _ped);
+            Internal.Function.Call(0x0762, this._ped);
         }
 
         public void DriveBy(Ped target, float radius, int firingRate)
         {
-            Internal.Function.Call(0x0713, _ped, target, -1, 0f, 0f, 0f, radius, 4, 1, firingRate);
+            Internal.Function.Call(0x0713, this._ped, target, -1, 0f, 0f, 0f, radius, 4, 1, firingRate);
         }
 
         public void DriveBy(Vehicle target, float radius, int firingRate)
         {
-            Internal.Function.Call(0x0713, _ped, -1, target, 0f, 0f, 0f, radius, 4, 1, firingRate);
+            Internal.Function.Call(0x0713, this._ped, -1, target, 0f, 0f, 0f, radius, 4, 1, firingRate);
         }
 
         public void DriveBy(Vector3 target, float radius, int firingRate)
         {
-            Internal.Function.Call(0x0713, _ped, -1, -1, target, radius, 4, 1, firingRate);
+            Internal.Function.Call(0x0713, this._ped, -1, -1, target, radius, 4, 1, firingRate);
         }
 
         internal void DriveBy()
         {
-            Internal.Function.Call(0x0713, _ped, -1, -1, 0f, 0f, 0f, 0f, -9000, 0, 100);
+            Internal.Function.Call(0x0713, this._ped, -1, -1, 0f, 0f, 0f, 0f, -9000, 0, 100);
         }
 
         public void EnterVehicle(Vehicle vehicle, VehicleSeat seat)
@@ -60,67 +60,67 @@ namespace GTA
             {
                 if (seat == VehicleSeat.Driver)
                 {
-                    Internal.Function.Call(0x05cb, _ped, vehicle, -1);
+                    Internal.Function.Call(0x05cb, this._ped, vehicle, -1);
                 }
                 else
                 {
-                    Internal.Function.Call(0x05ca, _ped, vehicle, -1, (int)seat);
+                    Internal.Function.Call(0x05ca, this._ped, vehicle, -1, (int)seat);
                 }
             }
         }
 
         public void FightAgainst(Ped ped)
         {
-            Internal.Function.Call(0x05e2, _ped, ped);
+            Internal.Function.Call(0x05e2, this._ped, ped);
         }
 
         public void FightAgainst(Ped ped, int duration)
         {
-            Internal.Function.Call(0x07a5, _ped, ped, duration);
+            Internal.Function.Call(0x07a5, this._ped, ped, duration);
         }
 
         public void FleeFromPed(Ped ped)
         {
-            FleeFromPed(ped, false);
+            this.FleeFromPed(ped, false);
         }
 
         public void FleeFromPed(Ped ped, bool prefersPavements)
         {
-            FleeFromPed(ped, prefersPavements, -1);
+            this.FleeFromPed(ped, prefersPavements, -1);
         }
 
         public void FleeFromPed(Ped ped, bool prefersPavements, int duration)
         {
             if (prefersPavements)
             {
-                Internal.Function.Call(0x05dd, _ped, ped, 100.0f, duration);
+                Internal.Function.Call(0x05dd, this._ped, ped, 100.0f, duration);
             }
             else
             {
-                Internal.Function.Call(0x05db, _ped, ped, 100.0f, duration);
+                Internal.Function.Call(0x05db, this._ped, ped, 100.0f, duration);
             }
         }
 
         public void GoTo(Vector3 position)
         {
-            GoTo(position, false);
+            this.GoTo(position, false);
         }
 
         public void GoTo(Vector3 target, bool ignorePaths)
         {
             if (!ignorePaths)
             {
-                Internal.Function.Call(0x0a2e, _ped, target, 2, -1, 1.0f);
+                Internal.Function.Call(0x0a2e, this._ped, target, 2, -1, 1.0f);
             }
             else
             {
-                Internal.Function.Call(0x05d3, _ped, target, 2, -1);
+                Internal.Function.Call(0x05d3, this._ped, target, 2, -1);
             }
         }
 
         public void Guard(int duration)
         {
-            Internal.Function.Call(0x05c9, _ped, duration);
+            Internal.Function.Call(0x05c9, this._ped, duration);
         }
 
         public void HandsUp(int duration)
@@ -130,48 +130,48 @@ namespace GTA
                 duration = 3600000;
             }
 
-            Internal.Function.Call(0x05c4, _ped, duration);
+            Internal.Function.Call(0x05c4, this._ped, duration);
         }
 
         public void LeaveVehicle()
         {
-            Internal.Function.Call(0x0633, _ped);
+            Internal.Function.Call(0x0633, this._ped);
         }
 
         public void LeaveVehicle(Vehicle vehicle)
         {
-            Internal.Function.Call(0x05cd, _ped, vehicle);
+            Internal.Function.Call(0x05cd, this._ped, vehicle);
         }
 
         public void LeaveVehicleImmediately(Vehicle vehicle)
         {
-            Internal.Function.Call(0x0622, _ped, vehicle);
+            Internal.Function.Call(0x0622, this._ped, vehicle);
         }
 
         public void LookAt(Ped target, int duration)
         {
-            Internal.Function.Call(0x05bf, _ped, target, duration);
+            Internal.Function.Call(0x05bf, this._ped, target, duration);
         }
 
         public void LookAt(Vector3 target, int duration)
         {
-            Internal.Function.Call(0x06a9, _ped, target, duration);
+            Internal.Function.Call(0x06a9, this._ped, target, duration);
         }
 
         public void LookAt(Vehicle target, int duration)
         {
-            Internal.Function.Call(0x05c0, _ped, target, duration);
+            Internal.Function.Call(0x05c0, this._ped, target, duration);
         }
 
         public void PlayAnimation(string file, string animation, bool loop)
         {
-            PlayAnimation(file, animation, loop, -2);
+            this.PlayAnimation(file, animation, loop, -2);
         }
 
         public void PlayAnimation(string file, string animation, bool loop, int duration)
         {
             LoadAnimation(file);
-            Internal.Function.Call(0x0812, _ped, animation, file, 1f, loop, true, true, true, duration);
+            Internal.Function.Call(0x0812, this._ped, animation, file, 1f, loop, true, true, true, duration);
             FreeAnimation(file);
         }
 
@@ -202,44 +202,44 @@ namespace GTA
 
         public void RunTo(Vector3 target)
         {
-            RunTo(target, false);
+            this.RunTo(target, false);
         }
 
         public void RunTo(Vector3 target, bool ignorePaths)
         {
             if (!ignorePaths)
             {
-                Internal.Function.Call(0x0a2e, _ped, target, 4, -1, 1.0f);
+                Internal.Function.Call(0x0a2e, this._ped, target, 4, -1, 1.0f);
             }
             else
             {
-                Internal.Function.Call(0x05d3, _ped, target, 4, -1);
+                Internal.Function.Call(0x05d3, this._ped, target, 4, -1);
             }
         }
 
         public void StandStill(bool enable)
         {
-            Internal.Function.Call(0x0638, _ped, enable);
+            Internal.Function.Call(0x0638, this._ped, enable);
         }
 
         public void Tire(int duration)
         {
-            Internal.Function.Call(0x05bd, _ped, duration);
+            Internal.Function.Call(0x05bd, this._ped, duration);
         }
 
         public void TurnTo(Ped target)
         {
-            Internal.Function.Call(0x0a1d, _ped, target);
+            Internal.Function.Call(0x0a1d, this._ped, target);
         }
 
         public void TurnTo(Vector3 target)
         {
-            Internal.Function.Call(0x06ba, _ped, target);
+            Internal.Function.Call(0x06ba, this._ped, target);
         }
 
         public void Wander()
         {
-            Internal.Function.Call(0x05de, _ped);
+            Internal.Function.Call(0x05de, this._ped);
         }
 
         public void WarpIntoVehicle(Vehicle vehicle, VehicleSeat seat)
@@ -248,11 +248,11 @@ namespace GTA
             {
                 if (seat == VehicleSeat.Driver)
                 {
-                    Internal.Function.Call(0x072a, _ped, vehicle);
+                    Internal.Function.Call(0x072a, this._ped, vehicle);
                 }
                 else
                 {
-                    Internal.Function.Call(0x072b, _ped, vehicle, (int)seat);
+                    Internal.Function.Call(0x072b, this._ped, vehicle, (int)seat);
                 }
             }
         }
@@ -267,38 +267,38 @@ namespace GTA
 
         ~TaskSequence()
         {
-            Internal.Function.Call(0x061b, _handle);
+            Internal.Function.Call(0x061b, this._handle);
         }
 
         public TaskSequence()
         {
-            _handle = Internal.Function.Call<int>(0x0615);
+            this._handle = Internal.Function.Call<int>(0x0615);
 
-            if (!_hasNullPed)
+            if (!this._hasNullPed)
             {
-                _hasNullPed = true;
-                _nullPed = new Ped(-1);
+                this._hasNullPed = true;
+                this._nullPed = new Ped(-1);
             }
         }
 
         public void Perform(Ped ped)
         {
-            if (!_closed)
+            if (!this._closed)
             {
-                _closed = true;
-                Internal.Function.Call(0x0616, _handle);
+                this._closed = true;
+                Internal.Function.Call(0x0616, this._handle);
             }
 
             ped.Tasks.ClearAll();
 
-            Internal.Function.Call(0x0618, ped, _handle);
+            Internal.Function.Call(0x0618, ped, this._handle);
         }
 
         public Tasks Tasks
         {
             get
             {
-                return _nullPed.Tasks;
+                return this._nullPed.Tasks;
             }
         }
 
@@ -306,7 +306,7 @@ namespace GTA
         {
             get
             {
-                return _handle;
+                return this._handle;
             }
         }
     }
@@ -317,7 +317,7 @@ namespace GTA
 
         public void ClearAll()
         {
-            Internal.Function.Call(0x0687, _ped);
+            Internal.Function.Call(0x0687, this._ped);
         }
 
         public void PerformSequence(TaskSequence sequence)

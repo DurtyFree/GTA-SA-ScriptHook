@@ -24,12 +24,12 @@ namespace GTA
 
         public TextDrawFont()
         {
-            LineWidth = 640f;
-            BorderEnabled = true;
-            Font = 1;
-            Size = 100;
-            Centered = false;
-            Color = new GTAColor(255, 255, 255, 255);
+            this.LineWidth = 640f;
+            this.BorderEnabled = true;
+            this.Font = 1;
+            this.Size = 100;
+            this.Centered = false;
+            this.Color = new GTAColor(255, 255, 255, 255);
         }
 
         public void ApplyToGame()
@@ -37,9 +37,9 @@ namespace GTA
             // 26-10-2009: enable 'normal' width
             Native.CallOpcode(0x0348, true);
 
-            if (Centered)
+            if (this.Centered)
             {
-                Align = TextDrawAlign.Center;
+                this.Align = TextDrawAlign.Center;
             }
 
             Native.CallOpcode(0x0342, false);
@@ -51,20 +51,20 @@ namespace GTA
             // but we do want a border :)
             // 26-10-2009: fixed bug with Color.A
 
-            if (Color.A == 0)
+            if (this.Color.A == 0)
             {
-                Native.CallOpcode(0x081c, BorderEnabled, 0, 0, 0, 255);
+                Native.CallOpcode(0x081c, this.BorderEnabled, 0, 0, 0, 255);
             }
             else
             {
-                Native.CallOpcode(0x081c, BorderEnabled, 0, 0, 0, Color.A);
+                Native.CallOpcode(0x081c, this.BorderEnabled, 0, 0, 0, this.Color.A);
             }
 
-            if (Align == TextDrawAlign.Center)
+            if (this.Align == TextDrawAlign.Center)
             {
                 Native.CallOpcode(0x0342, true);
             }
-            else if (Align == TextDrawAlign.Right)
+            else if (this.Align == TextDrawAlign.Right)
             {
                 Native.CallOpcode(0x03e4, true);
             }
@@ -72,23 +72,23 @@ namespace GTA
             /*if (Align != TextDrawAlign.Left)
             {*/
             //Native.CallOpcode(0x0343, 640.0f);
-            Native.CallOpcode(0x0343, LineWidth);
+            Native.CallOpcode(0x0343, this.LineWidth);
             /*}
             else
             {
                 Native.CallOpcode(0x0343, 0.0f);
             }*/
 
-            if (Size > 0)
+            if (this.Size > 0)
             {
                 // let's take 100 == 1.0 height
 
-                float height = (int)(Size / 100);
+                float height = (int)(this.Size / 100);
 
                 // could have fixed the bug, but it causes incompatiblity
-                if (Size < 30f)
+                if (this.Size < 30f)
                 {
-                    height = Size;
+                    height = this.Size;
                 }
 
                 float width = (height * 0.224f);
@@ -97,14 +97,14 @@ namespace GTA
                 //Initialize.Log(string.Format("Font size: {0} {1}", width, height));
             }
 
-            if (Font != -1)
+            if (this.Font != -1)
             {
-                Native.CallOpcode(0x0349, Font);
+                Native.CallOpcode(0x0349, this.Font);
             }
 
-            if (Color.A != 0)
+            if (this.Color.A != 0)
             {
-                Native.CallOpcode(0x0340, Color.R, Color.G, Color.B, Color.A);
+                Native.CallOpcode(0x0340, this.Color.R, this.Color.G, this.Color.B, this.Color.A);
             }
         }
     }
@@ -126,8 +126,8 @@ namespace GTA
         public TextDraw()
         {
             Enabled = true;
-            Interval = 0;
-            Tick += new EventHandler(TextDraw_OnTick);
+            this.Interval = 0;
+            Tick += new EventHandler(this.TextDraw_OnTick);
 
             var tdEnabled = new TextDrawEnabledConsoleCommand();
             Console.Register(tdEnabled);
@@ -140,7 +140,7 @@ namespace GTA
 
         void TextDraw_OnTick(object sender, EventArgs e)
         {
-            Clear();
+            this.Clear();
 
             if (HijackTick != null)
             {
@@ -204,7 +204,7 @@ namespace GTA
         public TextDrawEnabledConsoleCommand()
             : base("v_textdraw", "")
         {
-            ValidateValue = value => (value == "1" || value == "0");
+            this.ValidateValue = value => (value == "1" || value == "0");
         }
 
         public override string Value

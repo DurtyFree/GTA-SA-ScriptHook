@@ -129,29 +129,29 @@ namespace GTA
         {
             float[] retval = new float[3];
 
-            if (M10 > 0.998f)
+            if (this.M10 > 0.998f)
             {
                 retval[0] = 0f;
                 retval[1] = (float)(Math.PI / 2);
-                retval[2] = (float)Math.Atan2(M02, M22);
+                retval[2] = (float)Math.Atan2(this.M02, this.M22);
 
-                return ToDeg(retval);
+                return this.ToDeg(retval);
             }
 
-            if (M10 < -0.998f)
+            if (this.M10 < -0.998f)
             {
                 retval[0] = 0f;
                 retval[1] = -((float)(Math.PI / 2));
-                retval[2] = (float)Math.Atan2(M02, M22);
+                retval[2] = (float)Math.Atan2(this.M02, this.M22);
 
-                return ToDeg(retval);
+                return this.ToDeg(retval);
             }
 
-            retval[0] = (float)Math.Atan2(-M12, M11);
-            retval[1] = (float)Math.Asin(M10);
-            retval[2] = (float)Math.Atan2(-M20, M00);
+            retval[0] = (float)Math.Atan2(-this.M12, this.M11);
+            retval[1] = (float)Math.Asin(this.M10);
+            retval[2] = (float)Math.Atan2(-this.M20, this.M00);
 
-            return ToDeg(retval);
+            return this.ToDeg(retval);
         }
 
         private float[] ToDeg(float[] value)

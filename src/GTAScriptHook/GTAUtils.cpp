@@ -6,13 +6,13 @@
 #ifdef GTA_SA
 #pragma unmanaged
 void PlayerConfigureWeaponSlot(DWORD dwThis, BYTE weaponSlot) {
-    DWORD dwFunc = 0x60D000;
-    _asm
-    {
-        mov     ecx, dwThis
-        push    weaponSlot
-        call    dwFunc
-    }
+	DWORD dwFunc = 0x60D000;
+	_asm
+	{
+		mov     ecx, dwThis
+		push    weaponSlot
+		call    dwFunc
+	}
 }
 
 void GameLoadNow() {

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -9,7 +6,7 @@ namespace GTA
     {
         public override void OnGameStart()
         {
-            Internal.Function.RegisterType(typeof(float), delegate(object value)
+            Internal.Function.RegisterType(typeof(float), delegate (object value)
             {
                 return GTAUtils.ConvertIntAsFloat((int)value);
             });
