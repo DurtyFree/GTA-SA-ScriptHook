@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -12,59 +10,53 @@ namespace GTA
 
         public DeferredScript()
         {
-            Tick += new EventHandler(this.DeferredScript_OnTick);
-            this.Interval = 100;
+            Tick += new EventHandler(DeferredScript_OnTick);
+            Interval = 100;
         }
 
         public void Assign(Action action)
         {
-            this._action = action;
+            _action = action;
         }
 
         void DeferredScript_OnTick(object sender, EventArgs e)
         {
-            if (this._action == null)
+            if (_action == null)
             {
                 return;
             }
 
             try
             {
-                this._action();
+                _action();
             }
             catch (Exception ex)
             {
-                GTA.Game.DisplayTextBox("A deferred script caused an exception.");
+                Game.DisplayTextBox("A deferred script caused an exception.");
 
                 Initialize.Log("Exception caused in deferred script: " + ex.ToString());
             }
 
-            this._action = null;
+            _action = null;
         }
 
-        public bool Busy
-        {
-            get
-            {
-                return (this._action == null) ? false : true;
-            }
-        }
+        public bool Busy => (_action == null) ? false : true;
     }
 
     public class Defer : TickScript
     {
         static List<Action> Actions { get; set; }
-        static List<DeferredScript> Workers = new List<DeferredScript>();
+        static readonly List<DeferredScript> _workers = new List<DeferredScript>();
 
         public Defer()
         {
             Actions = new List<Action>();
-            Tick += new EventHandler(this.Defer_OnTick);
+            Tick += new EventHandler(Defer_OnTick);
 
             for (int i = 0; i < 5; i++)
             {
                 var ds = new DeferredScript();
-                Workers.Add(ds);
+                _workers.Add(ds);
 
                 ScriptLoader.LoadScript(ds);
             }
@@ -75,7 +67,7 @@ namespace GTA
             //Actions.Add(action);
             bool assigned = false;
 
-            foreach (var worker in Workers)
+            foreach (var worker in _workers)
             {
                 if (worker.Busy)
                 {
@@ -107,7 +99,7 @@ namespace GTA
             if (!assigned)
             {
                 var ds = new DeferredScript();
-                Workers.Add(ds);
+                _workers.Add(ds);
 
                 ScriptLoader.LoadScript(ds);
 
@@ -123,7 +115,7 @@ namespace GTA
 
             int i = 0;
 
-            foreach (var worker in Workers)
+            foreach (var worker in _workers)
             {
                 string d = "Worker " + i.ToString();
 
@@ -151,7 +143,7 @@ namespace GTA
                     }
                     catch (Exception ex)
                     {
-                        GTA.Game.DisplayTextBox("A deferred script caused an exception.");
+                        Game.DisplayTextBox("A deferred script caused an exception.");
 
                         Initialize.Log("Exception caused in deferred script: " + ex.ToString());
                     }

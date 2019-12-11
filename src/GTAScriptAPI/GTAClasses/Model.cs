@@ -8,17 +8,17 @@ namespace GTA
     public struct Model
     {
         #region item name code
-        internal static bool IDELoaded = false;
+        internal static bool IdeLoaded = false;
         internal static Dictionary<string, int> Models = new Dictionary<string, int>();
 
-        internal static void LoadIDE()
+        internal static void LoadIde()
         {
-            if (IDELoaded)
+            if (IdeLoaded)
             {
                 return;
             }
 
-            IDELoaded = true; // though we may not succeed, this is for the better - no need trying again if we fail
+            IdeLoaded = true; // though we may not succeed, this is for the better - no need trying again if we fail
 
             var gtadat = "";
 #if GTA_SA
@@ -73,7 +73,7 @@ namespace GTA
         public static bool IsKnown(string name)
         {
 #if !GTA_IV
-            LoadIDE();
+            LoadIde();
 
             if (!Models.ContainsKey(name.ToLower()))
             {
@@ -148,12 +148,10 @@ namespace GTA
             return value;
         }
 
-        private readonly int id;
-
         public Model(string name)
         {
 #if !GTA_IV
-            LoadIDE();
+            LoadIde();
 
             if (!Models.ContainsKey(name.ToLower()))
             {
@@ -161,7 +159,7 @@ namespace GTA
 
                 if (int.TryParse(name, out model))
                 {
-                    this.id = model;
+                    Id = model;
                 }
                 else
                 {
@@ -170,7 +168,7 @@ namespace GTA
             }
             else
             {
-                this.id = Models[name.ToLower()];
+                Id = Models[name.ToLower()];
             }
 #else
             _id = (int)Hash(name);
@@ -179,15 +177,15 @@ namespace GTA
 
         public Model(int id)
         {
-            this.id = id;
+            Id = id;
         }
 
         public void Load()
         {
-            Internal.Function.Call(0x0247, this.ID);
+            Internal.Function.Call(0x0247, Id);
             Internal.Function.Call(0x038B);
 
-            while (!this.Loaded)
+            while (!Loaded)
             {
                 GTAUtils.Wait(0);
             }
@@ -195,7 +193,7 @@ namespace GTA
 
         public void Release()
         {
-            Internal.Function.Call(0x0249, this.ID);
+            Internal.Function.Call(0x0249, Id);
         }
 
         public static implicit operator Model(int source)
@@ -210,7 +208,7 @@ namespace GTA
 
         public static implicit operator Internal.Parameter(Model source)
         {
-            return new Internal.Parameter(source.ID);
+            return new Internal.Parameter(source.Id);
         }
 
         public static bool operator ==(Model left, Model right)
@@ -225,17 +223,17 @@ namespace GTA
 
         public override int GetHashCode()
         {
-            return this.id;
+            return Id;
         }
 
         public override bool Equals(object obj)
         {
-            return (this.GetHashCode() == obj.GetHashCode());
+            return (GetHashCode() == obj.GetHashCode());
         }
 
         public override string ToString()
         {
-            return "#" + this.id.ToString();
+            return "#" + Id.ToString();
         }
 
         public bool Loaded
@@ -244,7 +242,7 @@ namespace GTA
             {
                 try
                 {
-                    if (Internal.Function.Call(0x0248, this.id))
+                    if (Internal.Function.Call(0x0248, Id))
                     {
                         return true;
                     }
@@ -261,7 +259,7 @@ namespace GTA
             {
                 try
                 {
-                    Internal.Function.Call(0x0248, this.id);
+                    Internal.Function.Call(0x0248, Id);
                     return true;
                 }
                 catch (AccessViolationException)
@@ -271,7 +269,7 @@ namespace GTA
             }
         }
 
-        public int ID => this.id;
+        public int Id { get; }
 
         public static void Load(Model model)
         {

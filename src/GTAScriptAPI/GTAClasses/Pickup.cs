@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -14,8 +12,8 @@ namespace GTA
 
     public class PickupHandler : Script
     {
-        static List<Pickup> _registeredPickups = new List<Pickup>();
-        static List<Pickup> _unregisteredPickups = new List<Pickup>();
+        static readonly List<Pickup> _registeredPickups = new List<Pickup>();
+        static readonly List<Pickup> _unregisteredPickups = new List<Pickup>();
 
         internal static void Register(Pickup pickup)
         {
@@ -31,7 +29,7 @@ namespace GTA
         {
             while (true)
             {
-                this.Wait(0);
+                Wait(0);
 
                 try
                 {
@@ -60,8 +58,6 @@ namespace GTA
 
     public class Pickup : HandleObject
     {
-        private Vector3 _origPos;
-
         public static Pickup CreatePickup(Vector3 position, Model model, PickupType type)
         {
             model.Load();
@@ -71,7 +67,7 @@ namespace GTA
 
             model.Release();
 
-            retval._origPos = position;
+            retval.Position = position;
             return retval;
         }
 
@@ -81,12 +77,12 @@ namespace GTA
             var retval = Internal.Function.Call<Pickup>(0x02E1, position, maxCash, permanent);
             PickupHandler.Register(retval);
 
-            retval._origPos = position;
+            retval.Position = position;
             return retval;
         }
 #endif
 
-        public static Pickup CreatePickup(Vector3 position, WeaponID weaponType, int ammo)
+        public static Pickup CreatePickup(Vector3 position, WeaponId weaponType, int ammo)
         {
             var weapon = new WeaponType(null, weaponType);
             var model = weapon.Model;
@@ -94,13 +90,13 @@ namespace GTA
 
             if (group == 11 || group == 1 || group == 2)
             {
-                return Pickup.CreatePickup(position, model, PickupType.PickupRespawn);
+                return CreatePickup(position, model, PickupType.PickupRespawn);
             }
 
             var retval = Internal.Function.Call<Pickup>(0x032B, model, group, ammo, position);
             PickupHandler.Register(retval);
 
-            retval._origPos = position;
+            retval.Position = position;
             return retval;
         }
 
@@ -120,30 +116,15 @@ namespace GTA
             }
         }
 
-        public bool PickedUp
-        {
-            get
-            {
-                return Internal.Function.Call(0x0214, this);
-            }
-        }
+        public bool PickedUp => Internal.Function.Call(0x0214, this);
 
 #if GTA_SA
         public int Money
         {
-            set
-            {
-                Internal.Function.Call(0x094a, this, value);
-            }
+            set => Internal.Function.Call(0x094a, this, value);
         }
 #endif
 
-        public Vector3 Position
-        {
-            get
-            {
-                return this._origPos;
-            }
-        }
+        public Vector3 Position { get; private set; }
     }
 }

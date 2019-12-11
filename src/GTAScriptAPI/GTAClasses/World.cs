@@ -6,17 +6,17 @@ namespace GTA
     {
         static World()
         {
-            carList = new List<Vehicle>();
-            pedList = new List<Ped>();
+            CarList = new List<Vehicle>();
+            PedList = new List<Ped>();
         }
 
-        public static Ped CreatePed(PedID model, Vector3 position, int pedtype) => CreatePed((int)model, position, pedtype);
+        public static Ped CreatePed(PedId model, Vector3 position, int pedtype) => CreatePed((int)model, position, pedtype);
 
-        public static Vehicle CreateVehicle(CarID model, Vector3 position) => CreateVehicle((int)model, position);
+        public static Vehicle CreateVehicle(CarId model, Vector3 position) => CreateVehicle((int)model, position);
 
         public static Ped CreatePed(Model model, Vector3 position, int pedtype)
         {
-            if (model.ID >= 290 && model.ID <= 299)
+            if (model.Id >= 290 && model.Id <= 299)
             {
                 return Internal.Function.Call<Ped>(0x009a, pedtype, model, position);
             }
@@ -50,20 +50,20 @@ namespace GTA
             return new Vector3(position.X, position.Y, z);
         }
 
-        static readonly List<Vehicle> carList;
+        static readonly List<Vehicle> CarList;
 
         public static List<Vehicle> GetAllVehicles()
         {
             var handles = Pool.Vehicle.GetAllHandles();
             //var vehicles = new List<Vehicle>();
-            carList.Clear();
+            CarList.Clear();
 
             foreach (var handle in handles)
             {
-                carList.Add(ObjectCache.GetVehicle(handle));
+                CarList.Add(ObjectCache.GetVehicle(handle));
             }
 
-            return carList;
+            return CarList;
 
 #if LEGACYPOOL
             var retval = new List<Vehicle>();
@@ -89,20 +89,20 @@ namespace GTA
 #endif
         }
 
-        static readonly List<Ped> pedList;
+        static readonly List<Ped> PedList;
 
         public static List<Ped> GetAllPeds()
         {
             var handles = Pool.Ped.GetAllHandles();
             //var peds = new List<Ped>();
-            pedList.Clear();
+            PedList.Clear();
 
             foreach (var handle in handles)
             {
-                pedList.Add(ObjectCache.GetPed(handle));
+                PedList.Add(ObjectCache.GetPed(handle));
             }
 
-            return pedList;
+            return PedList;
 
 #if LEGACYPOOL
             var retval = new List<Ped>();
@@ -135,10 +135,7 @@ namespace GTA
 
         public static int Interior
         {
-            get
-            {
-                return Internal.Function.Call<int>(0x077E);
-            }
+            get => Internal.Function.Call<int>(0x077E);
             set
             {
                 Internal.Function.Call(0x057E, (value != 0)); // gray out radar if not exterior world

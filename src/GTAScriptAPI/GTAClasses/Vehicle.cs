@@ -27,9 +27,9 @@
             Internal.Function.Call(0x00a6, this);
         }
 
-        public void MakeProofTo(bool Bullets, bool Fire, bool Explosions, bool Collisions, bool MeleeAttacks)
+        public void MakeProofTo(bool bullets, bool fire, bool explosions, bool collisions, bool meleeAttacks)
         {
-            Internal.Function.Call(0x02ac, this, Bullets, Fire, Explosions, Collisions, MeleeAttacks);
+            Internal.Function.Call(0x02ac, this, bullets, fire, explosions, collisions, meleeAttacks);
         }
 
         public Vector3 Position
@@ -44,10 +44,7 @@
 
                 return new Vector3((float)x, (float)y, (float)z);
             }
-            set
-            {
-                Internal.Function.Call(0x00ab, this, value);
-            }
+            set => Internal.Function.Call(0x00ab, this, value);
         }
 
         public void SetImmuneToNonPlayer(bool value)
@@ -65,89 +62,44 @@
             return Internal.Function.Call(0x051D, this, car);
         }
 
-        public bool DamagedBy(WeaponID weapon)
+        public bool DamagedBy(WeaponId weapon)
         {
             return Internal.Function.Call(0x031E, this, (int)weapon);
         }
 
         public int Health
         {
-            get
-            {
-                return Internal.Function.Call<int>(0x0227, this);
-            }
-            set
-            {
-                Internal.Function.Call(0x0224, this, value);
-            }
+            get => Internal.Function.Call<int>(0x0227, this);
+            set => Internal.Function.Call(0x0224, this, value);
         }
 
         public VehicleLock LockStatus
         {
-            get
-            {
-                return (VehicleLock)Internal.Function.Call<int>(0x09B3, this);
-            }
-            set
-            {
-                Internal.Function.Call(0x020A, this, (int)value);
-            }
+            get => (VehicleLock)Internal.Function.Call<int>(0x09B3, this);
+            set => Internal.Function.Call(0x020A, this, (int)value);
         }
 
         public float Speed
         {
-            get
-            {
-                return Internal.Function.Call<float>(0x02e3, this);
-            }
-            set
-            {
-                Internal.Function.Call(0x04ba, this, value);
-            }
+            get => Internal.Function.Call<float>(0x02e3, this);
+            set => Internal.Function.Call(0x04ba, this, value);
         }
 
-        public float AISpeed
+        public float AiSpeed
         {
-            set
-            {
-                Internal.Function.Call(0x00ad, this, value);
-            }
+            set => Internal.Function.Call(0x00ad, this, value);
         }
 
         public float Heading
         {
-            get
-            {
-                return Internal.Function.Call<float>(0x0174, this);
-            }
-            set
-            {
-                Internal.Function.Call(0x0175, this, value);
-            }
+            get => Internal.Function.Call<float>(0x0174, this);
+            set => Internal.Function.Call(0x0175, this, value);
         }
 
-        public CarID Model
-        {
-            get
-            {
-                return (CarID)Internal.Function.Call<int>(0x0441, this);
-            }
-        }
+        public CarId Model => (CarId)Internal.Function.Call<int>(0x0441, this);
 
-        public bool IsAlive
-        {
-            get
-            {
-                return !Internal.Function.Call(0x0119, this);
-            }
-        }
+        public bool IsAlive => !Internal.Function.Call(0x0119, this);
 
-        public bool IsDefined
-        {
-            get
-            {
-                return Internal.Function.Call(0x056e, this);
-            }
-        }
+        public bool IsDefined => Internal.Function.Call(0x056e, this);
     }
 }

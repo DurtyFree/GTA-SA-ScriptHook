@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GTA
 {
     public static class ObjectCache
     {
-        private static Dictionary<int, Ped> _pedCache = new Dictionary<int, Ped>();
-        private static Dictionary<int, Vehicle> _vehicleCache = new Dictionary<int, Vehicle>();
+        private static readonly Dictionary<int, Ped> _pedCache = new Dictionary<int, Ped>();
+        private static readonly Dictionary<int, Vehicle> _vehicleCache = new Dictionary<int, Vehicle>();
 
         public static void AddPed(Ped p)
         {

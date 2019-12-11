@@ -1,77 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
     public struct Time
     {
         public Time(int hours, int minutes) : this()
         {
-            this.Hours = hours;
-            this.Minutes = minutes;
+            Hours = hours;
+            Minutes = minutes;
         }
 
         public int Hours { get; set; }
         public int Minutes { get; set; }
     }
 
-    public class GTAColor
+    public class GtaColor
     {
-        private byte _r;
-        private byte _g;
-        private byte _b;
-        private byte _a;
+        public byte R { get; }
 
-        public byte R
+        public byte G { get; }
+
+        public byte B { get; }
+
+        public byte A { get; set; }
+
+        public GtaColor(byte r, byte g, byte b, byte a = 255)
         {
-            get
-            {
-                return this._r;
-            }
-        }
-
-        public byte G
-        {
-            get
-            {
-                return this._g;
-            }
-        }
-
-        public byte B
-        {
-            get
-            {
-                return this._b;
-            }
-        }
-
-        public byte A
-        {
-            get
-            {
-                return this._a;
-            }
-            set
-            {
-                this._a = value;
-            }
-        }
-
-        public GTAColor(byte r, byte g, byte b)
-            : this(r, g, b, 255)
-        {
-
-        }
-
-        public GTAColor(byte r, byte g, byte b, byte a)
-        {
-            this._r = r;
-            this._g = g;
-            this._b = b;
-            this._a = a;
+            R = r;
+            G = g;
+            B = b;
+            A = a;
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -13,42 +10,48 @@ namespace GTA
 
     public struct Vector3
     {
-        static Random random;
+        static readonly Random _random;
 
         static Vector3()
         {
-            random = new Random();
+            _random = new Random();
         }
 
-        public float pX, pY, pZ;
+        public float PX, PY, PZ;
 
-        public float X { get { return this.pX; } set { this.pX = value; } }
-        public float Y { get { return this.pY; } set { this.pY = value; } }
-        public float Z { get { return this.pZ; } set { this.pZ = value; } }
+        public float X { get => PX;
+            set => PX = value;
+        }
+        public float Y { get => PY;
+            set => PY = value;
+        }
+        public float Z { get => PZ;
+            set => PZ = value;
+        }
 
         public Vector3(float x, float y) : this(x, y, 0f) { }
 
         public Vector3(float x, float y, float z)
         {
-            this.pX = x;
-            this.pY = y;
-            this.pZ = z;
+            PX = x;
+            PY = y;
+            PZ = z;
         }
 
         public Vector3(SVector old)
         {
-            this.pX = old.pX;
-            this.pY = old.pY;
-            this.pZ = old.pZ;
+            PX = old.pX;
+            PY = old.pY;
+            PZ = old.pZ;
         }
 
         public float DistanceTo2D(Vector3 other)
         {
             Vector3 temp = other;
-            temp.pZ = 0;
+            temp.PZ = 0;
 
             Vector3 temp2 = this;
-            temp2.pZ = 0;
+            temp2.PZ = 0;
 
             return temp2.DistanceTo(temp);
         }
@@ -62,19 +65,19 @@ namespace GTA
 
         public float Length()
         {
-            return (float)Math.Sqrt((this.X * this.X) + (this.Y * this.Y) + (this.Z * this.Z));
+            return (float)Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
         }
 
         public Vector3 Around(float distance)
         {
-            Vector3 difference = Vector3.RandomXY() * distance;
+            Vector3 difference = RandomXy() * distance;
 
             return (this + difference);
         }
 
-        public static Vector3 RandomXY()
+        public static Vector3 RandomXy()
         {
-            Vector3 retval = new Vector3((float)(random.NextDouble() - 0.5), (float)(random.NextDouble() - 0.5));
+            Vector3 retval = new Vector3((float)(_random.NextDouble() - 0.5), (float)(_random.NextDouble() - 0.5));
             retval.Normalize();
 
             return retval;
@@ -82,14 +85,14 @@ namespace GTA
 
         public void Normalize()
         {
-            var length = this.Length();
+            var length = Length();
 
             if (length > 0)
             {
                 var factor = 1.0f / length;
-                this.X *= factor;
-                this.Y *= factor;
-                this.Z *= factor;
+                X *= factor;
+                Y *= factor;
+                Z *= factor;
             }
         }
 
@@ -170,13 +173,13 @@ namespace GTA
 
         public SVector ToSVector()
         {
-            return new SVector(this.X, this.Y, this.Z);
+            return new SVector(X, Y, Z);
         }
 
 #if GTA_SA
         public Vector3 ToScreenCoords()
         {
-            var retval = NativeFunctions.GetScreenCoords(this.ToSVector());
+            var retval = NativeFunctions.GetScreenCoords(ToSVector());
             return new Vector3(retval);
         }
 #endif
@@ -220,7 +223,7 @@ namespace GTA
 
         public override string ToString()
         {
-            return string.Format("({0},{1},{2})", this.X, this.Y, this.Z);
+            return string.Format("({0},{1},{2})", X, Y, Z);
         }
     }
 }

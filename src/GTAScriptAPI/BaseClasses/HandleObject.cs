@@ -9,12 +9,12 @@ namespace GTA
 
         public HandleObject()
         {
-            this.Handle = 0;
+            Handle = 0;
         }
 
         public HandleObject(int handle)
         {
-            this.Handle = handle;
+            Handle = handle;
         }
 
         public static implicit operator Parameter(HandleObject source)
@@ -39,12 +39,12 @@ namespace GTA
 
         public static bool operator ==(HandleObject left, HandleObject right)
         {
-            if (object.ReferenceEquals(left, null))
+            if (ReferenceEquals(left, null))
             {
-                return (object.ReferenceEquals(right, null));
+                return (ReferenceEquals(right, null));
             }
 
-            if (object.ReferenceEquals(right, null))
+            if (ReferenceEquals(right, null))
             {
                 return false;
             }
@@ -59,7 +59,7 @@ namespace GTA
 
         public override int GetHashCode()
         {
-            return this.Handle;
+            return Handle;
         }
     }
 }

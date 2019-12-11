@@ -1,62 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GTA
 {
     public class WeaponType
     {
-        private Ped owner;
-        private WeaponID type;
+        private readonly Ped _owner;
 
-        internal WeaponType(Ped owner, WeaponID type)
+        internal WeaponType(Ped owner, WeaponId type)
         {
-            this.type = type;
-            this.owner = owner;
+            Type = type;
+            _owner = owner;
         }
 
-        public WeaponID Type
-        {
-            get
-            {
-                return this.type;
-            }
-        }
+        public WeaponId Type { get; }
 
         public int Ammo
         {
             get
             {
-                if (!Internal.Function.Call(0x0491, this.owner, (int)this.type))
+                if (!Internal.Function.Call(0x0491, _owner, (int)Type))
                 {
                     return -1;
                 }
 
-                return Internal.Function.Call<int>(0x041a, this.owner, (int)this.type);
+                return Internal.Function.Call<int>(0x041a, _owner, (int)Type);
             }
             set
             {
-                int type = (int)this.type;
+                int type = (int)Type;
 
-                if (Internal.Function.Call(0x0491, this.owner, type))
+                if (Internal.Function.Call(0x0491, _owner, type))
                 {
                     if (value == 0)
                     {
-                        Internal.Function.Call(0x0555, this.owner, type);
+                        Internal.Function.Call(0x0555, _owner, type);
                     }
                     else
                     {
-                        Internal.Function.Call(0x017b, this.owner, type, value);
+                        Internal.Function.Call(0x017b, _owner, type, value);
                     }
                 }
                 else
                 {
                     if (value != 0)
                     {
-                        this.Load();
+                        Load();
 
-                        Internal.Function.Call(0x01b2, this.owner, type, value);
+                        Internal.Function.Call(0x01b2, _owner, type, value);
                     }
                 }
             }
@@ -64,25 +54,19 @@ namespace GTA
 
         public void Load()
         {
-            Model model = new Model(this.Model);
+            Model model = new Model(Model);
             model.Load();
         }
 
-        public WeaponID ID
-        {
-            get
-            {
-                return this.type;
-            }
-        }
+        public WeaponId Id => Type;
 
         public int Model
         {
             get
             {
-                int modelID = Internal.Function.Call<int>(0x0781, (int)this.type);
+                int modelId = Internal.Function.Call<int>(0x0781, (int)Type);
 
-                return modelID;
+                return modelId;
             }
         }
 
@@ -90,58 +74,58 @@ namespace GTA
         {
             get
             {
-                int slotID = Internal.Function.Call<int>(0x0782, (int)this.type);
+                int slotId = Internal.Function.Call<int>(0x0782, (int)Type);
 
-                return slotID;
+                return slotId;
             }
         }
 
         public void Select()
         {
-            int type = (int)this.type;
+            int type = (int)Type;
 
-            if (!Internal.Function.Call(0x0491, this.owner, type))
+            if (!Internal.Function.Call(0x0491, _owner, type))
             {
                 // TODO: perhaps use weapon in this weapon group?
                 return;
             }
 
-            Internal.Function.Call(0x01b9, this.owner, type);
+            Internal.Function.Call(0x01b9, _owner, type);
         }
     }
 
     public class WeaponsCollection
     {
-        private Ped character;
-        private Dictionary<WeaponID, WeaponType> weaponCache;
+        private readonly Ped _character;
+        private Dictionary<WeaponId, WeaponType> _weaponCache;
 
         internal WeaponsCollection(Ped character)
         {
-            this.character = character;
+            _character = character;
         }
 
-        public WeaponType FromID(WeaponID id)
+        public WeaponType FromId(WeaponId id)
         {
             WeaponType retval = null;
 
-            if (this.weaponCache == null)
+            if (_weaponCache == null)
             {
-                this.weaponCache = new Dictionary<WeaponID, WeaponType>();
+                _weaponCache = new Dictionary<WeaponId, WeaponType>();
             }
-            else if (this.weaponCache.TryGetValue(id, out retval))
+            else if (_weaponCache.TryGetValue(id, out retval))
             {
                 return retval;
             }
 
-            retval = new WeaponType(this.character, id);
-            this.weaponCache.Add(id, retval);
+            retval = new WeaponType(_character, id);
+            _weaponCache.Add(id, retval);
 
             return retval;
         }
 
-        public static implicit operator WeaponID(WeaponsCollection source)
+        public static implicit operator WeaponId(WeaponsCollection source)
         {
-            return source.CurrentID;
+            return source.CurrentId;
         }
 
         public static implicit operator WeaponType(WeaponsCollection source)
@@ -151,399 +135,117 @@ namespace GTA
 
         public void RemoveAll()
         {
-            Internal.Function.Call(0x048f, this.character);
+            Internal.Function.Call(0x048f, _character);
         }
 
-        public void Select(WeaponID weapon)
+        public void Select(WeaponId weapon)
         {
-            this.FromID(weapon).Select();
+            FromId(weapon).Select();
         }
 
-        public WeaponType Current
-        {
-            get
-            {
-                return this.FromID(GTA.Internal.Function.Call<WeaponID>(0x0470, this.character));
-            }
-        }
+        public WeaponType Current => FromId(Internal.Function.Call<WeaponId>(0x0470, _character));
 
-        public WeaponID CurrentID
-        {
-            get
-            {
-                return GTA.Internal.Function.Call<WeaponID>(0x0470, this.character);
-            }
-        }
+        public WeaponId CurrentId => Internal.Function.Call<WeaponId>(0x0470, _character);
 
         public WeaponType FromSlot(int slot)
         {
             VarPointer type = new VarPointer();
             VarPointer dummy = new VarPointer();
 
-            Internal.Function.Call(0x04B8, this.character, slot, type, dummy, dummy);
+            Internal.Function.Call(0x04B8, _character, slot, type, dummy, dummy);
 
-            return this[(WeaponID)type.Value];
+            return this[(WeaponId)type.Value];
         }
 
-        public WeaponType this[WeaponID id]
-        {
-            get
-            {
-                return this.FromID(id);
-            }
-        }
+        public WeaponType this[WeaponId id] => FromId(id);
 
         // generated from a helper tool
-        public WeaponType Gift_Dildo1
-        {
-            get
-            {
-                return this.FromID(WeaponID.Gift_Dildo1);
-            }
-        }
+        public WeaponType GiftDildo1 => FromId(WeaponId.GiftDildo1);
 
-        public WeaponType Gift_Dildo2
-        {
-            get
-            {
-                return this.FromID(WeaponID.Gift_Dildo2);
-            }
-        }
+        public WeaponType GiftDildo2 => FromId(WeaponId.GiftDildo2);
 
-        public WeaponType Gift_Vibe1
-        {
-            get
-            {
-                return this.FromID(WeaponID.Gift_Vibe1);
-            }
-        }
+        public WeaponType GiftVibe1 => FromId(WeaponId.GiftVibe1);
 
-        public WeaponType Gift_Vibe2
-        {
-            get
-            {
-                return this.FromID(WeaponID.Gift_Vibe2);
-            }
-        }
+        public WeaponType GiftVibe2 => FromId(WeaponId.GiftVibe2);
 
-        public WeaponType Gift_Flowers
-        {
-            get
-            {
-                return this.FromID(WeaponID.Gift_Flowers);
-            }
-        }
+        public WeaponType GiftFlowers => FromId(WeaponId.GiftFlowers);
 
-        public WeaponType Gift_Cane
-        {
-            get
-            {
-                return this.FromID(WeaponID.Gift_Cane);
-            }
-        }
+        public WeaponType GiftCane => FromId(WeaponId.GiftCane);
 
-        public WeaponType Melee_Unarmed
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Unarmed);
-            }
-        }
+        public WeaponType MeleeUnarmed => FromId(WeaponId.MeleeUnarmed);
 
-        public WeaponType Melee_BrassKnuckles
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_BrassKnuckles);
-            }
-        }
+        public WeaponType MeleeBrassKnuckles => FromId(WeaponId.MeleeBrassKnuckles);
 
-        public WeaponType Melee_GolfClub
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_GolfClub);
-            }
-        }
+        public WeaponType MeleeGolfClub => FromId(WeaponId.MeleeGolfClub);
 
-        public WeaponType Melee_Nightstick
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Nightstick);
-            }
-        }
+        public WeaponType MeleeNightstick => FromId(WeaponId.MeleeNightstick);
 
-        public WeaponType Melee_Knife
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Knife);
-            }
-        }
+        public WeaponType MeleeKnife => FromId(WeaponId.MeleeKnife);
 
-        public WeaponType Melee_Bat
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Bat);
-            }
-        }
+        public WeaponType MeleeBat => FromId(WeaponId.MeleeBat);
 
-        public WeaponType Melee_Shovel
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Shovel);
-            }
-        }
+        public WeaponType MeleeShovel => FromId(WeaponId.MeleeShovel);
 
-        public WeaponType Melee_PoolCue
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_PoolCue);
-            }
-        }
+        public WeaponType MeleePoolCue => FromId(WeaponId.MeleePoolCue);
 
-        public WeaponType Melee_Katana
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Katana);
-            }
-        }
+        public WeaponType MeleeKatana => FromId(WeaponId.MeleeKatana);
 
-        public WeaponType Melee_Chainsaw
-        {
-            get
-            {
-                return this.FromID(WeaponID.Melee_Chainsaw);
-            }
-        }
+        public WeaponType MeleeChainsaw => FromId(WeaponId.MeleeChainsaw);
 
-        public WeaponType Thrown_Grenades
-        {
-            get
-            {
-                return this.FromID(WeaponID.Thrown_Grenades);
-            }
-        }
+        public WeaponType ThrownGrenades => FromId(WeaponId.ThrownGrenades);
 
-        public WeaponType Thrown_Teargas
-        {
-            get
-            {
-                return this.FromID(WeaponID.Thrown_Teargas);
-            }
-        }
+        public WeaponType ThrownTeargas => FromId(WeaponId.ThrownTeargas);
 
-        public WeaponType Thrown_Molotovs
-        {
-            get
-            {
-                return this.FromID(WeaponID.Thrown_Molotovs);
-            }
-        }
+        public WeaponType ThrownMolotovs => FromId(WeaponId.ThrownMolotovs);
 
-        public WeaponType Thrown_Satchel
-        {
-            get
-            {
-                return this.FromID(WeaponID.Thrown_Satchel);
-            }
-        }
+        public WeaponType ThrownSatchel => FromId(WeaponId.ThrownSatchel);
 
-        public WeaponType Satchel_Detonator
-        {
-            get
-            {
-                return this.FromID(WeaponID.Satchel_Detonator);
-            }
-        }
+        public WeaponType SatchelDetonator => FromId(WeaponId.SatchelDetonator);
 
-        public WeaponType Pistol_Colt45
-        {
-            get
-            {
-                return this.FromID(WeaponID.Pistol_Colt45);
-            }
-        }
+        public WeaponType PistolColt45 => FromId(WeaponId.PistolColt45);
 
-        public WeaponType Pistol_Silenced
-        {
-            get
-            {
-                return this.FromID(WeaponID.Pistol_Silenced);
-            }
-        }
+        public WeaponType PistolSilenced => FromId(WeaponId.PistolSilenced);
 
-        public WeaponType Pistol_Deagle
-        {
-            get
-            {
-                return this.FromID(WeaponID.Pistol_Deagle);
-            }
-        }
+        public WeaponType PistolDeagle => FromId(WeaponId.PistolDeagle);
 
-        public WeaponType Shotgun_Shotgun
-        {
-            get
-            {
-                return this.FromID(WeaponID.Shotgun_Shotgun);
-            }
-        }
+        public WeaponType ShotgunShotgun => FromId(WeaponId.ShotgunShotgun);
 
-        public WeaponType Shotgun_Sawnoff
-        {
-            get
-            {
-                return this.FromID(WeaponID.Shotgun_Sawnoff);
-            }
-        }
+        public WeaponType ShotgunSawnoff => FromId(WeaponId.ShotgunSawnoff);
 
-        public WeaponType Shotgun_SPAS12
-        {
-            get
-            {
-                return this.FromID(WeaponID.Shotgun_SPAS12);
-            }
-        }
+        public WeaponType ShotgunSpas12 => FromId(WeaponId.ShotgunSpas12);
 
-        public WeaponType SMG_Uzi
-        {
-            get
-            {
-                return this.FromID(WeaponID.SMG_Uzi);
-            }
-        }
+        public WeaponType SmgUzi => FromId(WeaponId.SmgUzi);
 
-        public WeaponType SMG_MP5
-        {
-            get
-            {
-                return this.FromID(WeaponID.SMG_MP5);
-            }
-        }
+        public WeaponType SmgMp5 => FromId(WeaponId.SmgMp5);
 
-        public WeaponType SMG_Tec9
-        {
-            get
-            {
-                return this.FromID(WeaponID.SMG_Tec9);
-            }
-        }
+        public WeaponType SmgTec9 => FromId(WeaponId.SmgTec9);
 
-        public WeaponType Assault_AK47
-        {
-            get
-            {
-                return this.FromID(WeaponID.Assault_AK47);
-            }
-        }
+        public WeaponType AssaultAk47 => FromId(WeaponId.AssaultAk47);
 
-        public WeaponType Assault_M4
-        {
-            get
-            {
-                return this.FromID(WeaponID.Assault_M4);
-            }
-        }
+        public WeaponType AssaultM4 => FromId(WeaponId.AssaultM4);
 
-        public WeaponType Rifle_Country
-        {
-            get
-            {
-                return this.FromID(WeaponID.Rifle_Country);
-            }
-        }
+        public WeaponType RifleCountry => FromId(WeaponId.RifleCountry);
 
-        public WeaponType Rifle_Sniper
-        {
-            get
-            {
-                return this.FromID(WeaponID.Rifle_Sniper);
-            }
-        }
+        public WeaponType RifleSniper => FromId(WeaponId.RifleSniper);
 
-        public WeaponType Heavy_RPG
-        {
-            get
-            {
-                return this.FromID(WeaponID.Heavy_RPG);
-            }
-        }
+        public WeaponType HeavyRpg => FromId(WeaponId.HeavyRpg);
 
-        public WeaponType Heavy_HSRPG
-        {
-            get
-            {
-                return this.FromID(WeaponID.Heavy_HSRPG);
-            }
-        }
+        public WeaponType HeavyHsrpg => FromId(WeaponId.HeavyHsrpg);
 
-        public WeaponType Heavy_Flamethrower
-        {
-            get
-            {
-                return this.FromID(WeaponID.Heavy_Flamethrower);
-            }
-        }
+        public WeaponType HeavyFlamethrower => FromId(WeaponId.HeavyFlamethrower);
 
-        public WeaponType Heavy_Minigun
-        {
-            get
-            {
-                return this.FromID(WeaponID.Heavy_Minigun);
-            }
-        }
+        public WeaponType HeavyMinigun => FromId(WeaponId.HeavyMinigun);
 
-        public WeaponType Misc_Spraycan
-        {
-            get
-            {
-                return this.FromID(WeaponID.Misc_Spraycan);
-            }
-        }
+        public WeaponType MiscSpraycan => FromId(WeaponId.MiscSpraycan);
 
-        public WeaponType Misc_FireExt
-        {
-            get
-            {
-                return this.FromID(WeaponID.Misc_FireExt);
-            }
-        }
+        public WeaponType MiscFireExt => FromId(WeaponId.MiscFireExt);
 
-        public WeaponType Misc_Camera
-        {
-            get
-            {
-                return this.FromID(WeaponID.Misc_Camera);
-            }
-        }
+        public WeaponType MiscCamera => FromId(WeaponId.MiscCamera);
 
-        public WeaponType Apparel_NVGoggles
-        {
-            get
-            {
-                return this.FromID(WeaponID.Apparel_NVGoggles);
-            }
-        }
+        public WeaponType ApparelNvGoggles => FromId(WeaponId.ApparelNvGoggles);
 
-        public WeaponType Apparel_ThermGoggles
-        {
-            get
-            {
-                return this.FromID(WeaponID.Apparel_ThermGoggles);
-            }
-        }
+        public WeaponType ApparelThermGoggles => FromId(WeaponId.ApparelThermGoggles);
 
-        public WeaponType Apparel_Parachute
-        {
-            get
-            {
-                return this.FromID(WeaponID.Apparel_Parachute);
-            }
-        }
+        public WeaponType ApparelParachute => FromId(WeaponId.ApparelParachute);
     }
 }

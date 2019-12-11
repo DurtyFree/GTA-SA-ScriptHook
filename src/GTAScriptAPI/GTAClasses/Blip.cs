@@ -1,129 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
     // TODO: find out if GTA reads alpha value
     public struct BlipColor
     {
-        private byte _r;
-        private byte _g;
-        private byte _b;
-        private byte _a;
+        public byte R { get; }
 
-        public byte R
-        {
-            get
-            {
-                return this._r;
-            }
-        }
+        public byte G { get; }
 
-        public byte G
-        {
-            get
-            {
-                return this._g;
-            }
-        }
+        public byte B { get; }
 
-        public byte B
-        {
-            get
-            {
-                return this._b;
-            }
-        }
+        public byte A { get; }
 
-        public byte A
-        {
-            get
-            {
-                return this._a;
-            }
-        }
+        public static BlipColor Default => new BlipColor(0);
 
-        public static BlipColor Default
-        {
-            get
-            {
-                return new BlipColor(0);
-            }
-        }
+        public static BlipColor Int0 => new BlipColor(0);
 
-        public static BlipColor Int_0
-        {
-            get
-            {
-                return new BlipColor(0);
-            }
-        }
+        public static BlipColor Pickup => new BlipColor(1);
 
-        public static BlipColor Pickup
-        {
-            get
-            {
-                return new BlipColor(1);
-            }
-        }
+        public static BlipColor Int1 => new BlipColor(1);
 
-        public static BlipColor Int_1
-        {
-            get
-            {
-                return new BlipColor(1);
-            }
-        }
+        public static BlipColor LightBlue => new BlipColor(2);
 
-        public static BlipColor LightBlue
-        {
-            get
-            {
-                return new BlipColor(2);
-            }
-        }
+        public static BlipColor Int2 => new BlipColor(2);
 
-        public static BlipColor Int_2
-        {
-            get
-            {
-                return new BlipColor(2);
-            }
-        }
+        public static BlipColor White => new BlipColor(3);
 
-        public static BlipColor White
-        {
-            get
-            {
-                return new BlipColor(3);
-            }
-        }
+        public static BlipColor Int3 => new BlipColor(3);
 
-        public static BlipColor Int_3
-        {
-            get
-            {
-                return new BlipColor(3);
-            }
-        }
+        public static BlipColor Destination => new BlipColor(4);
 
-        public static BlipColor Destination
-        {
-            get
-            {
-                return new BlipColor(4);
-            }
-        }
-
-        public static BlipColor Int_4
-        {
-            get
-            {
-                return new BlipColor(4);
-            }
-        }
+        public static BlipColor Int4 => new BlipColor(4);
 
         public BlipColor(byte a)
             : this(0, 0, 0, a)
@@ -139,10 +45,10 @@ namespace GTA
 
         public BlipColor(byte r, byte g, byte b, byte a)
         {
-            this._r = r;
-            this._g = g;
-            this._b = b;
-            this._a = a;
+            R = r;
+            G = g;
+            B = b;
+            A = a;
         }
 
         public uint Value
@@ -156,7 +62,7 @@ namespace GTA
                 uint cB = 256;
                 uint cA = 1;
 
-                return ((this.R * cR) + (this.G * cG) + (this.B * cB) + (this.A * cA));
+                return ((R * cR) + (G * cG) + (B * cB) + (A * cA));
             }
         }
     }
@@ -171,14 +77,12 @@ namespace GTA
 
     public class Blip : HandleObject
     {
-        private BlipIcon currentIcon;
-        private BlipColor currentColor;
-        private Vector3 lastPosition;
+        private BlipColor _currentColor;
 
         public Blip()
         {
-            this.currentColor = BlipColor.Default;
-            this.currentIcon = BlipIcon.Misc_Destination;
+            _currentColor = BlipColor.Default;
+            Icon = BlipIcon.MiscDestination;
         }
 
         public static Blip AddBlip(Vector3 position, BlipIcon icon)
@@ -200,9 +104,9 @@ namespace GTA
             }
 
             blip.Size = 3; // sensible defaults, yaknow
-            blip.currentIcon = icon;
+            blip.Icon = icon;
 
-            blip.lastPosition = position;
+            blip.Position = position;
 
             return blip;
         }
@@ -239,55 +143,31 @@ namespace GTA
 
         public BlipColor Color
         {
-            get
-            {
-                return this.currentColor;
-            }
+            get => _currentColor;
             set
             {
-                this.currentColor = value;
+                _currentColor = value;
                 Internal.Function.Call(0x0165, this, (int)value.Value);
             }
         }
 
-        public Vector3 Position
-        {
-            get
-            {
-                return this.lastPosition;
-            }
-        }
+        public Vector3 Position { get; private set; }
 
         public int Size
         {
-            set
-            {
-                Internal.Function.Call(0x0168, this, value);
-            }
+            set => Internal.Function.Call(0x0168, this, value);
         }
 
         public bool Friendly
         {
-            set
-            {
-                Internal.Function.Call(0x07E0, this, value);
-            }
+            set => Internal.Function.Call(0x07E0, this, value);
         }
 
-        public BlipIcon Icon
-        {
-            get
-            {
-                return this.currentIcon;
-            }
-        }
+        public BlipIcon Icon { get; private set; }
 
         public BlipDisplay Display
         {
-            set
-            {
-                Internal.Function.Call(0x018B, this, (int)value);
-            }
+            set => Internal.Function.Call(0x018B, this, (int)value);
         }
     }
 }

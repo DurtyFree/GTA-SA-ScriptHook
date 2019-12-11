@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
     public enum CameraLookMode
     {
@@ -26,14 +21,8 @@ namespace GTA
 #if GTA_SA
         public static float FOV
         {
-            get
-            {
-                return NativeFunctions.GetCameraFOV();
-            }
-            set
-            {
-                NativeFunctions.SetCameraFOV(value);
-            }
+            get => NativeFunctions.GetCameraFOV();
+            set => NativeFunctions.SetCameraFOV(value);
         }
 #endif
 

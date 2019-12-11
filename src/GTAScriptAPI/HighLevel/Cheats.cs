@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -9,75 +7,75 @@ namespace GTA
     {
         static Cheats()
         {
-            lastKeys = new byte[256];
-            registeredCheats = new List<Cheat>();
+            _lastKeys = new byte[256];
+            _registeredCheats = new List<Cheat>();
         }
 
         public Cheats()
         {
-            my = this;
+            _my = this;
         }
 
         class Cheat
         {
-            public string name;
-            public Action callback;
+            public string Name;
+            public Action Callback;
         }
 
-        static Cheats my;
+        static Cheats _my;
 
-        static List<Cheat> registeredCheats;
+        static readonly List<Cheat> _registeredCheats;
 
-        static byte[] lastKeys;
-        static string textBuffer = "";
+        static readonly byte[] _lastKeys;
+        static string _textBuffer = "";
 
         public override void Run()
         {
             while (true)
             {
-                this.Wait(0);
+                Wait(0);
 
-                this.BuildBuffer();
-                this.CheckRegistry();
+                BuildBuffer();
+                CheckRegistry();
             }
         }
 
-        public static void SpawnVehicle(CarID carID)
+        public static void SpawnVehicle(CarId carId)
         {
-            var position = my.Player.Character.Position.Around(5);
+            var position = _my.Player.Character.Position.Around(5);
 
             Log.Debug("position read: " + position.ToString());
 
-            var car = World.CreateVehicle(carID, position);
+            var car = World.CreateVehicle(carId, position);
 
             Log.Debug("position car: " + car.Position.ToString());
             car.LockStatus = VehicleLock.Unlocked;
             car.NoLongerNeeded();
         }
 
-        public static void SpawnPed(PedID pedID)
+        public static void SpawnPed(PedId pedId)
         {
-            var position = my.Player.Character.Position.Around(5);
+            var position = _my.Player.Character.Position.Around(5);
 
-            var ped = World.CreatePed(pedID, position, 24);
+            var ped = World.CreatePed(pedId, position, 24);
             ped.Tasks.Wander();
             ped.NoLongerNeeded();
         }
 
         public static void RegisterCheat(string name, Action callback)
         {
-            registeredCheats.Add(new Cheat() { name = name.ToUpper(), callback = callback });
+            _registeredCheats.Add(new Cheat() { Name = name.ToUpper(), Callback = callback });
         }
 
         void CheckRegistry()
         {
-            foreach (var cheat in registeredCheats)
+            foreach (var cheat in _registeredCheats)
             {
-                if (textBuffer.EndsWith(cheat.name))
+                if (_textBuffer.EndsWith(cheat.Name))
                 {
                     try
                     {
-                        cheat.callback();
+                        cheat.Callback();
                         Game.DisplayTextBox("Cheat activated");
                     }
                     catch (Exception e)
@@ -86,7 +84,7 @@ namespace GTA
                         Log.Error(e);
                     }
 
-                    textBuffer = "";
+                    _textBuffer = "";
                 }
             }
         }
@@ -96,17 +94,17 @@ namespace GTA
             var keys = ScriptProcessor.Instance.KeyBuffer;
             for (int i = 0x30; i <= 0x5A; i++)
             {
-                if (keys[i] != 0 && lastKeys[i] == 0)
+                if (keys[i] != 0 && _lastKeys[i] == 0)
                 {
-                    textBuffer += (char)i;
+                    _textBuffer += (char)i;
                 }
             }
 
-            Array.Copy(keys, lastKeys, 256);
+            Array.Copy(keys, _lastKeys, 256);
 
-            if (textBuffer.Length > 25)
+            if (_textBuffer.Length > 25)
             {
-                textBuffer = textBuffer.Substring(1, 25);
+                _textBuffer = _textBuffer.Substring(1, 25);
             }
         }
     }

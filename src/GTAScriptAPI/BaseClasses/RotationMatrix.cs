@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -120,7 +117,7 @@ namespace GTA
 
         public static RotationMatrix Rotate(float x, float y, float z)
         {
-            return RotationMatrix.RotateX(x) * RotationMatrix.RotateY(y) * RotationMatrix.RotateZ(z);
+            return RotateX(x) * RotateY(y) * RotateZ(z);
         }
 
         // code from http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToEuler/index.htm
@@ -129,29 +126,29 @@ namespace GTA
         {
             float[] retval = new float[3];
 
-            if (this.M10 > 0.998f)
+            if (M10 > 0.998f)
             {
                 retval[0] = 0f;
                 retval[1] = (float)(Math.PI / 2);
-                retval[2] = (float)Math.Atan2(this.M02, this.M22);
+                retval[2] = (float)Math.Atan2(M02, M22);
 
-                return this.ToDeg(retval);
+                return ToDeg(retval);
             }
 
-            if (this.M10 < -0.998f)
+            if (M10 < -0.998f)
             {
                 retval[0] = 0f;
                 retval[1] = -((float)(Math.PI / 2));
-                retval[2] = (float)Math.Atan2(this.M02, this.M22);
+                retval[2] = (float)Math.Atan2(M02, M22);
 
-                return this.ToDeg(retval);
+                return ToDeg(retval);
             }
 
-            retval[0] = (float)Math.Atan2(-this.M12, this.M11);
-            retval[1] = (float)Math.Asin(this.M10);
-            retval[2] = (float)Math.Atan2(-this.M20, this.M00);
+            retval[0] = (float)Math.Atan2(-M12, M11);
+            retval[1] = (float)Math.Asin(M10);
+            retval[2] = (float)Math.Atan2(-M20, M00);
 
-            return this.ToDeg(retval);
+            return ToDeg(retval);
         }
 
         private float[] ToDeg(float[] value)

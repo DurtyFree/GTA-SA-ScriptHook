@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
@@ -17,19 +15,19 @@ namespace GTA
         public bool BorderEnabled { get; set; }
         public int Font { get; set; }
         public float Size { get; set; }
-        public GTAColor Color { get; set; }
+        public GtaColor Color { get; set; }
         public bool Centered { get; set; }
         public TextDrawAlign Align { get; set; }
         public float LineWidth { get; set; }
 
         public TextDrawFont()
         {
-            this.LineWidth = 640f;
-            this.BorderEnabled = true;
-            this.Font = 1;
-            this.Size = 100;
-            this.Centered = false;
-            this.Color = new GTAColor(255, 255, 255, 255);
+            LineWidth = 640f;
+            BorderEnabled = true;
+            Font = 1;
+            Size = 100;
+            Centered = false;
+            Color = new GtaColor(255, 255, 255, 255);
         }
 
         public void ApplyToGame()
@@ -37,9 +35,9 @@ namespace GTA
             // 26-10-2009: enable 'normal' width
             Native.CallOpcode(0x0348, true);
 
-            if (this.Centered)
+            if (Centered)
             {
-                this.Align = TextDrawAlign.Center;
+                Align = TextDrawAlign.Center;
             }
 
             Native.CallOpcode(0x0342, false);
@@ -51,20 +49,20 @@ namespace GTA
             // but we do want a border :)
             // 26-10-2009: fixed bug with Color.A
 
-            if (this.Color.A == 0)
+            if (Color.A == 0)
             {
-                Native.CallOpcode(0x081c, this.BorderEnabled, 0, 0, 0, 255);
+                Native.CallOpcode(0x081c, BorderEnabled, 0, 0, 0, 255);
             }
             else
             {
-                Native.CallOpcode(0x081c, this.BorderEnabled, 0, 0, 0, this.Color.A);
+                Native.CallOpcode(0x081c, BorderEnabled, 0, 0, 0, Color.A);
             }
 
-            if (this.Align == TextDrawAlign.Center)
+            if (Align == TextDrawAlign.Center)
             {
                 Native.CallOpcode(0x0342, true);
             }
-            else if (this.Align == TextDrawAlign.Right)
+            else if (Align == TextDrawAlign.Right)
             {
                 Native.CallOpcode(0x03e4, true);
             }
@@ -72,23 +70,23 @@ namespace GTA
             /*if (Align != TextDrawAlign.Left)
             {*/
             //Native.CallOpcode(0x0343, 640.0f);
-            Native.CallOpcode(0x0343, this.LineWidth);
+            Native.CallOpcode(0x0343, LineWidth);
             /*}
             else
             {
                 Native.CallOpcode(0x0343, 0.0f);
             }*/
 
-            if (this.Size > 0)
+            if (Size > 0)
             {
                 // let's take 100 == 1.0 height
 
-                float height = (int)(this.Size / 100);
+                float height = (int)(Size / 100);
 
                 // could have fixed the bug, but it causes incompatiblity
-                if (this.Size < 30f)
+                if (Size < 30f)
                 {
-                    height = this.Size;
+                    height = Size;
                 }
 
                 float width = (height * 0.224f);
@@ -97,14 +95,14 @@ namespace GTA
                 //Initialize.Log(string.Format("Font size: {0} {1}", width, height));
             }
 
-            if (this.Font != -1)
+            if (Font != -1)
             {
-                Native.CallOpcode(0x0349, this.Font);
+                Native.CallOpcode(0x0349, Font);
             }
 
-            if (this.Color.A != 0)
+            if (Color.A != 0)
             {
-                Native.CallOpcode(0x0340, this.Color.R, this.Color.G, this.Color.B, this.Color.A);
+                Native.CallOpcode(0x0340, Color.R, Color.G, Color.B, Color.A);
             }
         }
     }
@@ -126,8 +124,8 @@ namespace GTA
         public TextDraw()
         {
             Enabled = true;
-            this.Interval = 0;
-            Tick += new EventHandler(this.TextDraw_OnTick);
+            Interval = 0;
+            Tick += new EventHandler(TextDraw_OnTick);
 
             var tdEnabled = new TextDrawEnabledConsoleCommand();
             Console.Register(tdEnabled);
@@ -140,7 +138,7 @@ namespace GTA
 
         void TextDraw_OnTick(object sender, EventArgs e)
         {
-            this.Clear();
+            Clear();
 
             if (HijackTick != null)
             {
@@ -152,17 +150,17 @@ namespace GTA
                 return;
             }
 
-            curDrawID = 1;
-            foreach (var Text in Texts)
+            _curDrawId = 1;
+            foreach (var text in Texts)
             {
-                Text.Font.ApplyToGame();
-                DrawCurrent(Text.Text, Text.Position.pX, Text.Position.pY);
+                text.Font.ApplyToGame();
+                DrawCurrent(text.Text, text.Position.PX, text.Position.PY);
             }
 
-            foreach (var Text in TempTexts)
+            foreach (var text in TempTexts)
             {
-                Text.Font.ApplyToGame();
-                DrawCurrent(Text.Text, Text.Position.pX, Text.Position.pY);
+                text.Font.ApplyToGame();
+                DrawCurrent(text.Text, text.Position.PX, text.Position.PY);
             }
 
             TempTexts.Clear();
@@ -170,21 +168,21 @@ namespace GTA
             //Native.CallOpcode(0x033e, 10f, 10f, "_TMEMO");
         }
 
-        static int curDrawID = 1;
+        static int _curDrawId = 1;
 
         public static void DrawCurrent(string text, float x, float y)
         {
-            string name = "TDRW" + curDrawID.ToString();
+            string name = "TDRW" + _curDrawId.ToString();
 
             //GTA.Game.SetCustomMultiText(i, Text.Text);
-            GTA.Game.CustomGXTs[name] = text;
+            Game.CustomGxTs[name] = text;
             Native.CallOpcode(0x033e, x, y, name);
 
-            curDrawID++;
+            _curDrawId++;
 
-            if (curDrawID >= 200)
+            if (_curDrawId >= 200)
             {
-                curDrawID = 1;
+                _curDrawId = 1;
             }
         }
 
@@ -204,15 +202,12 @@ namespace GTA
         public TextDrawEnabledConsoleCommand()
             : base("v_textdraw", "")
         {
-            this.ValidateValue = value => (value == "1" || value == "0");
+            ValidateValue = value => (value == "1" || value == "0");
         }
 
         public override string Value
         {
-            get
-            {
-                return (TextDraw.Enabled) ? "1" : "0";
-            }
+            get => (TextDraw.Enabled) ? "1" : "0";
             set
             {
                 if (value == "")

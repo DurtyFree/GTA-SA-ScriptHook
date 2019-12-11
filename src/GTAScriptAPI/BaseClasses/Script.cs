@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GTA.Internal;
 
 namespace GTA
@@ -12,9 +9,9 @@ namespace GTA
 
         public override void OnStart() {
 #if !GTA_SCO
-            this.Player = (Player)new Player(GlobalVariable.Get(2).Value);
+            Player = (Player)new Player(GlobalVariable.Get(2).Value);
 #if GTA_SA
-            this.Player.Character = (Ped)new Ped(GlobalVariable.Get(3).Value);
+            Player.Character = (Ped)new Ped(GlobalVariable.Get(3).Value);
 #endif
 #if GTA_III
             Player.Character = (Ped)new Ped(GlobalVariable.Get(11).Value);
@@ -33,17 +30,17 @@ namespace GTA
 
         public TickScript()
         {
-            this.Interval = 100;
+            Interval = 100;
         }
 
         public override void Run()
         {
             while (true)
             {
-                this.ProcessKeyBindings();
-                this.OnTick();
+                ProcessKeyBindings();
+                OnTick();
 
-                this.Wait(this.Interval);
+                Wait(Interval);
             }
         }
 

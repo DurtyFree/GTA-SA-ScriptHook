@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.IO;
 using System.Text;
 
 namespace GTA
@@ -19,39 +18,39 @@ namespace GTA
 
         public ConsoleCommand(string name, Action<string[]> handler)
         {
-            this.Name = name;
-            this.Type = ConsoleCommandType.Command;
-            this.Handler = handler;
-            this.HelpText = "";
+            Name = name;
+            Type = ConsoleCommandType.Command;
+            Handler = handler;
+            HelpText = "";
 
-            this.ShowInAutoComplete = true;
+            ShowInAutoComplete = true;
         }
 
         public ConsoleCommand(string name, string defaultValue)
         {
-            this.Name = name;
-            this.Type = ConsoleCommandType.Variable;
-            this.ValidateValue = value => true;
-            this.ShowInAutoComplete = true;
-            this.HelpText = "";
+            Name = name;
+            Type = ConsoleCommandType.Variable;
+            ValidateValue = value => true;
+            ShowInAutoComplete = true;
+            HelpText = "";
 
             if (defaultValue != null)
             {
-                this.Value = defaultValue;
+                Value = defaultValue;
             }
         }
 
         public ConsoleCommand(string name, string defaultValue, Func<string, bool> validator)
         {
-            this.Name = name;
-            this.Type = ConsoleCommandType.Variable;
-            this.ValidateValue = validator;
-            this.ShowInAutoComplete = true;
-            this.HelpText = "";
+            Name = name;
+            Type = ConsoleCommandType.Variable;
+            ValidateValue = validator;
+            ShowInAutoComplete = true;
+            HelpText = "";
 
             if (defaultValue != null)
             {
-                this.Value = defaultValue;
+                Value = defaultValue;
             }
         }
 
@@ -64,13 +63,10 @@ namespace GTA
 
         public virtual string Value
         {
-            get
-            {
-                return this._value;
-            }
+            get => _value;
             set
             {
-                this._value = value;
+                _value = value;
 
                 if (ValueChanged != null)
                 {
@@ -88,7 +84,7 @@ namespace GTA
         public static bool LargeConsole { get; set; }
         public static bool Invalidated { get; set; }
 
-        private static Dictionary<string, ConsoleCommand> Commands = new Dictionary<string, ConsoleCommand>();
+        private static readonly Dictionary<string, ConsoleCommand> _commands = new Dictionary<string, ConsoleCommand>();
 
         private int _screenX;
         private int _screenY;
@@ -101,10 +97,10 @@ namespace GTA
         private List<string> _commandHistory;
         private static List<string> _screenBuffer;
 
-        private IntPtr rwTexture;
-        private Font font;
+        private IntPtr _rwTexture;
+        private Font _font;
 
-        private bool _setAA = true;
+        private bool _setAa = true;
 
         [System.Runtime.InteropServices.DllImport("user32.dll", SetLastError = true)]
         public static extern int ToAscii(
@@ -122,8 +118,8 @@ namespace GTA
 
         public Console()
         {
-            Log.EventWritten += new Action<LogLevel, string>(this.Log_EventWritten);
-            ScriptProcessor.Instance.RawTick += new Action<uint>(this.Instance_RawTick);
+            Log.EventWritten += new Action<LogLevel, string>(Log_EventWritten);
+            ScriptProcessor.Instance.RawTick += new Action<uint>(Instance_RawTick);
 
             ConsoleCommand dbgAppDomain = new ConsoleCommand("dbg_appdomain", args =>
             {
@@ -133,7 +129,7 @@ namespace GTA
             dbgAppDomain.HelpText = "[DEBUG] shows the current AppDomain";
             Register(dbgAppDomain);
 
-            ConsoleCommand setAA = new ConsoleCommand("v_console_smooth", "1", (value) =>
+            ConsoleCommand setAa = new ConsoleCommand("v_console_smooth", "1", (value) =>
             {
                 if (value != "0" && value != "1")
                 {
@@ -143,10 +139,10 @@ namespace GTA
                 return true;
             });
 
-            setAA.ValueChanged += new EventHandler(this.setAA_ValueChanged);
-            setAA.HelpText = "A flag changing some value nobody knows what it does";
+            setAa.ValueChanged += new EventHandler(setAA_ValueChanged);
+            setAa.HelpText = "A flag changing some value nobody knows what it does";
 
-            Register(setAA);
+            Register(setAa);
 
             ConsoleCommand cmdList = new ConsoleCommand("help", args =>
             {
@@ -159,7 +155,7 @@ namespace GTA
 
                 Print("All registered commands:");
 
-                var commands = from command in Commands
+                var commands = from command in _commands
                                orderby command.Key ascending
                                where command.Key.StartsWith(filter)
                                select command.Value;
@@ -188,14 +184,14 @@ namespace GTA
 
         void setAA_ValueChanged(object sender, EventArgs e)
         {
-            this._setAA = (((ConsoleCommand)sender).Value == "1");
+            _setAa = (((ConsoleCommand)sender).Value == "1");
         }
 
         public static void Register(ConsoleCommand command)
         {
-            if (!Commands.ContainsKey(command.Name))
+            if (!_commands.ContainsKey(command.Name))
             {
-                Commands.Add(command.Name, command);
+                _commands.Add(command.Name, command);
             }
         }
 
@@ -203,9 +199,9 @@ namespace GTA
         {
             if (Active)
             {
-                this.EnsureFrameBuffer();
-                this.DrawConsole();
-                this.LogBuffer("draw");
+                EnsureFrameBuffer();
+                DrawConsole();
+                LogBuffer("draw");
             }
         }
 
@@ -230,23 +226,23 @@ namespace GTA
 
         public override void Run()
         {
-            this.Wait(1000);
+            Wait(1000);
 
-            this._commandHistory = new List<string>();
-            this.lastKeys = new byte[256];
+            _commandHistory = new List<string>();
+            _lastKeys = new byte[256];
             LargeConsole = true;
 
-            this.CreateFrameBuffer();
+            CreateFrameBuffer();
 
-            this.font = new Font("Courier New", 10, FontStyle.Regular);
+            _font = new Font("Courier New", 10, FontStyle.Regular);
 
             while (true)
             {
-                this.Wait(0);
+                Wait(0);
 
 #if GTA_SA
-                this._screenX = Memory.ReadInt32(0xC17044);
-                this._screenY = Memory.ReadInt32(0xC17048);
+                _screenX = Memory.ReadInt32(0xC17044);
+                _screenY = Memory.ReadInt32(0xC17048);
 #endif
 #if GTA_III
                 //_screenX = (int)(1f / Memory.ReadSingle(0x5F7148));
@@ -257,8 +253,8 @@ namespace GTA
                 Game.DisplayText(_screenY.ToString(), 20);
 #endif
 
-                this.ProcessKeys();
-                Array.Copy(this.keys, this.lastKeys, 256);
+                ProcessKeys();
+                Array.Copy(_keys, _lastKeys, 256);
 
                 if (Active)
                 {
@@ -266,13 +262,13 @@ namespace GTA
                     Game.GamePad.Clear();
                     Game.GamePad2.Clear();
 #endif
-                    this.LogBuffer("begin");
-                    this.EnsureFrameBuffer();
-                    this.LogBuffer("ensure1");
-                    this.RenderConsole();
-                    this.LogBuffer("render");
-                    this.EnsureFrameBuffer(); // again!
-                    this.LogBuffer("ensure2");
+                    LogBuffer("begin");
+                    EnsureFrameBuffer();
+                    LogBuffer("ensure1");
+                    RenderConsole();
+                    LogBuffer("render");
+                    EnsureFrameBuffer(); // again!
+                    LogBuffer("ensure2");
                 }
             }
         }
@@ -306,7 +302,7 @@ namespace GTA
 
             if (pointer < 0xa00000)
             {
-                this.CreateFrameBuffer();
+                CreateFrameBuffer();
             }
         }
 
@@ -314,7 +310,7 @@ namespace GTA
         {
             Log.Debug("Creating frame buffer");
 #if !GTA_IV
-            this.rwTexture = RenderWare.CreateTexture32(2048, 2048);
+            _rwTexture = RenderWare.CreateTexture32(2048, 2048);
 
             // write texture to script position 91
 #if GTA_SA
@@ -327,40 +323,40 @@ namespace GTA
 #endif
             baseOffset -= 4;
 
-            Memory.Write(baseOffset, this.rwTexture.ToInt32());
+            Memory.Write(baseOffset, _rwTexture.ToInt32());
 
             Invalidated = true;
 #endif
         }
 
-        byte[] keys;
-        byte[] lastKeys;
+        byte[] _keys;
+        byte[] _lastKeys;
 
         private bool KeyPressed(int keycode)
         {
-            var retval = (this.keys[keycode] != 0 && this.lastKeys[keycode] == 0);
+            var retval = (_keys[keycode] != 0 && _lastKeys[keycode] == 0);
 
             return retval;
         }
 
         private bool IsShiftPressed()
         {
-            return (this.keys[(int)System.Windows.Forms.Keys.Shift] != 0);
+            return (_keys[(int)System.Windows.Forms.Keys.Shift] != 0);
         }
 
         private void ProcessKeys()
         {
-            this.keys = ScriptProcessor.Instance.KeyBuffer;
+            _keys = ScriptProcessor.Instance.KeyBuffer;
 
-            this.ProcessKeyBindings();
+            ProcessKeyBindings();
 
-            if (this.KeyPressed((int)System.Windows.Forms.Keys.Oem3))
+            if (KeyPressed((int)System.Windows.Forms.Keys.Oem3))
             {
                 Active = !Active;
-                this.Player.CanControlCharacter = !Active;
-                BaseScript.DisableKeyBindings = Active;
+                Player.CanControlCharacter = !Active;
+                DisableKeyBindings = Active;
 #if GTA_SA
-                Game.RawHUDEnabled(!Active);
+                Game.RawHudEnabled(!Active);
                 Game.ShowRadar(!Active);
 #endif
                 Invalidated = true;
@@ -370,38 +366,38 @@ namespace GTA
 
             if (Active)
             {
-                if (this.KeyPressed((int)System.Windows.Forms.Keys.Back))
+                if (KeyPressed((int)System.Windows.Forms.Keys.Back))
                 {
-                    if (this._inputBuffer.Length > 0)
+                    if (_inputBuffer.Length > 0)
                     {
-                        this._inputBuffer = this._inputBuffer.Substring(0, this._inputBuffer.Length - 1);
-                        this._typedInputBuffer = this._inputBuffer;
+                        _inputBuffer = _inputBuffer.Substring(0, _inputBuffer.Length - 1);
+                        _typedInputBuffer = _inputBuffer;
 
-                        this.UpdateSuggestions();
+                        UpdateSuggestions();
                         Invalidated = true;
                     }
                 }
 
-                if (this.KeyPressed((int)System.Windows.Forms.Keys.Return))
+                if (KeyPressed((int)System.Windows.Forms.Keys.Return))
                 {
-                    this.SendCommand();
+                    SendCommand();
 
-                    this.UpdateSuggestions();
+                    UpdateSuggestions();
                     return;
                 }
 
-                if (this.KeyPressed((int)System.Windows.Forms.Keys.Up))
+                if (KeyPressed((int)System.Windows.Forms.Keys.Up))
                 {
-                    if (this._suggestions.Count > 0)
+                    if (_suggestions.Count > 0)
                     {
-                        this._currentSuggestion--;
+                        _currentSuggestion--;
 
-                        if (this._currentSuggestion < 0)
+                        if (_currentSuggestion < 0)
                         {
-                            this._currentSuggestion = this._suggestions.Count - 1;
+                            _currentSuggestion = _suggestions.Count - 1;
                         }
 
-                        this._inputBuffer = this._suggestions[this._currentSuggestion].Name + " ";
+                        _inputBuffer = _suggestions[_currentSuggestion].Name + " ";
 
                         Invalidated = true;
                     }
@@ -409,18 +405,18 @@ namespace GTA
                     return;
                 }
 
-                if (this.KeyPressed((int)System.Windows.Forms.Keys.Down))
+                if (KeyPressed((int)System.Windows.Forms.Keys.Down))
                 {
-                    if (this._suggestions.Count > 0)
+                    if (_suggestions.Count > 0)
                     {
-                        this._currentSuggestion++;
+                        _currentSuggestion++;
 
-                        if (this._currentSuggestion > (this._suggestions.Count - 1))
+                        if (_currentSuggestion > (_suggestions.Count - 1))
                         {
-                            this._currentSuggestion = 0;
+                            _currentSuggestion = 0;
                         }
 
-                        this._inputBuffer = this._suggestions[this._currentSuggestion].Name + " ";
+                        _inputBuffer = _suggestions[_currentSuggestion].Name + " ";
 
                         Invalidated = true;
                     }
@@ -428,7 +424,7 @@ namespace GTA
                     return;
                 }
 
-                if (this.KeyPressed((int)System.Windows.Forms.Keys.PageUp))
+                if (KeyPressed((int)System.Windows.Forms.Keys.PageUp))
                 {
                     _screenTop -= 25;
 
@@ -442,7 +438,7 @@ namespace GTA
                     return;
                 }
 
-                if (this.KeyPressed((int)System.Windows.Forms.Keys.PageDown))
+                if (KeyPressed((int)System.Windows.Forms.Keys.PageDown))
                 {
                     _screenTop += 25;
 
@@ -458,25 +454,25 @@ namespace GTA
 
                 for (int i = 0x20; i <= 0xFF; i++)
                 {
-                    if (this.KeyPressed(i))
+                    if (KeyPressed(i))
                     {
                         StringBuilder sb = new StringBuilder(2);
-                        int retval = ToAscii((uint)i, 0, this.keys, sb, 0);
+                        int retval = ToAscii((uint)i, 0, _keys, sb, 0);
 
                         if (retval == 1)
                         {
-                            this._inputBuffer += sb.ToString()[0];
-                            this._typedInputBuffer = this._inputBuffer;
+                            _inputBuffer += sb.ToString()[0];
+                            _typedInputBuffer = _inputBuffer;
 
-                            this.UpdateSuggestions();
+                            UpdateSuggestions();
                             Invalidated = true;
                         }
                         else if (retval == 2)
                         {
-                            this._inputBuffer += sb.ToString();
-                            this._typedInputBuffer = this._inputBuffer;
+                            _inputBuffer += sb.ToString();
+                            _typedInputBuffer = _inputBuffer;
 
-                            this.UpdateSuggestions();
+                            UpdateSuggestions();
                             Invalidated = true;
                         }
                     }
@@ -486,13 +482,13 @@ namespace GTA
 
         private void SendCommand()
         {
-            Print("@#FFFF00> " + this._inputBuffer);
+            Print("@#FFFF00> " + _inputBuffer);
 
-            Process(this._inputBuffer);
+            Process(_inputBuffer);
 
-            this._inputBuffer = "";
-            this._typedInputBuffer = "";
-            this.UpdateSuggestions();
+            _inputBuffer = "";
+            _typedInputBuffer = "";
+            UpdateSuggestions();
 
             Invalidated = true;
         }
@@ -509,13 +505,13 @@ namespace GTA
                 var data = command.Split(new char[] { ' ' }, 2);
                 var commandName = data[0].ToLower();
 
-                if (!Commands.ContainsKey(commandName))
+                if (!_commands.ContainsKey(commandName))
                 {
                     Print("@#ff0000unknown command " + commandName);
                     return;
                 }
 
-                var cmd = Commands[commandName];
+                var cmd = _commands[commandName];
 
                 switch (cmd.Type)
                 {
@@ -551,7 +547,7 @@ namespace GTA
                             {
                                 if (!cmd.ValidateValue(newValue))
                                 {
-                                    Console.Print("@#ff0000invalid argument passed");
+                                    Print("@#ff0000invalid argument passed");
                                     break;
                                 }
                             }
@@ -664,11 +660,11 @@ namespace GTA
             float h = 2048f;
 
 #if GTA_SA
-            x = (x / this._screenX) * (Memory.ReadSingle(0x85951c));
-            y = (y / this._screenY) * 448f;
+            x = (x / _screenX) * (Memory.ReadSingle(0x85951c));
+            y = (y / _screenY) * 448f;
 
-            w = (w / this._screenX) * (Memory.ReadSingle(0x85951c));
-            h = (h / this._screenY) * 448f;
+            w = (w / _screenX) * (Memory.ReadSingle(0x85951c));
+            h = (h / _screenY) * 448f;
 #endif
 #if GTA_III
             // GTA3 uses non-translated screen-space coordinates for textures, going from the top left
@@ -683,7 +679,7 @@ namespace GTA
             // GTA3 doesn't do anything with it, but if false, the HUD is drawn last
             // which is useful, since the HUD disabling commands don't exist on III. :)
 #if !GTA_III
-            if (this._setAA)
+            if (_setAa)
             {
                 Internal.Function.Call(0x03E3, true);
             }
@@ -698,7 +694,7 @@ namespace GTA
 #endif
         }
 
-        private float p(float value)
+        private float P(float value)
         {
             return ((short)(value * 16f)) / 16f;
         }
@@ -714,20 +710,20 @@ namespace GTA
                 return;
             }
 
-            var graphics = TXD.LockBitmap(this.rwTexture);
+            var graphics = TXD.LockBitmap(_rwTexture);
             graphics.Clear(Color.Transparent);
             graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
 
-            this.RenderInputBox(graphics);
+            RenderInputBox(graphics);
 
             if (LargeConsole)
             {
-                this.RenderOutputBox(graphics);
+                RenderOutputBox(graphics);
             }
 
-            this.RenderAutoComplete(graphics);
+            RenderAutoComplete(graphics);
 
-            TXD.UnlockBitmap(this.rwTexture);
+            TXD.UnlockBitmap(_rwTexture);
 
             Invalidated = false;
 #endif
@@ -735,45 +731,45 @@ namespace GTA
 
         private void RenderInputBox(Graphics g)
         {
-            var text = "GTAScript:" + ScriptProcessor.HookVersion + "> " + this._inputBuffer;
-            var tSize = g.MeasureString(text, this.font).ToSize();
+            var text = "GTAScript:" + ScriptProcessor.HookVersion + "> " + _inputBuffer;
+            var tSize = g.MeasureString(text, _font).ToSize();
 
             int x = 15;
             int y = 15;
 
-            int w = this._screenX - 30;
+            int w = _screenX - 30;
             int h = tSize.Height + 3 + 3;
 
             g.FillRectangle(new SolidBrush(Color.FromArgb(0x44, 0x44, 0x44)), x, y, w + 2, h + 2);
             g.DrawRectangle(new Pen(Color.FromArgb(0x22, 0x22, 0x22), 2f), x, y, w + 2, h + 2);
 
-            g.DrawString(text, this.font, new SolidBrush(Color.Yellow), x + 7, y + 3);
+            g.DrawString(text, _font, new SolidBrush(Color.Yellow), x + 7, y + 3);
 
-            this._inputBoxRight = x + 7 + tSize.Width;
-            this._inputBoxBottom = y + h + 2;
+            _inputBoxRight = x + 7 + tSize.Width;
+            _inputBoxBottom = y + h + 2;
         }
 
         private List<ConsoleCommand> _suggestions = new List<ConsoleCommand>();
-        private string _suggestionSource = "";
+        private readonly string _suggestionSource = "";
         private int _currentSuggestion = 0;
 
         private void UpdateSuggestions()
         {
-            if (this._typedInputBuffer.Contains(' ') || this._typedInputBuffer == "")
+            if (_typedInputBuffer.Contains(' ') || _typedInputBuffer == "")
             {
-                this._suggestions.Clear();
-                this._currentSuggestion = 0;
+                _suggestions.Clear();
+                _currentSuggestion = 0;
                 return;
             }
 
-            if (this._typedInputBuffer != this._suggestionSource)
+            if (_typedInputBuffer != _suggestionSource)
             {
-                var suggestions = from command in Commands
-                                  where command.Key.ToLower().StartsWith(this._typedInputBuffer.ToLower()) && command.Key.ToLower() != this._typedInputBuffer.ToLower() && command.Value.ShowInAutoComplete
+                var suggestions = from command in _commands
+                                  where command.Key.ToLower().StartsWith(_typedInputBuffer.ToLower()) && command.Key.ToLower() != _typedInputBuffer.ToLower() && command.Value.ShowInAutoComplete
                                   select command.Value;
 
-                this._suggestions = suggestions.ToList();
-                this._currentSuggestion = -1;
+                _suggestions = suggestions.ToList();
+                _currentSuggestion = -1;
             }
         }
 
@@ -791,27 +787,27 @@ namespace GTA
 
         private void RenderAutoComplete(Graphics g)
         {
-            if (this._suggestions.Count > 0)
+            if (_suggestions.Count > 0)
             {
-                var longestSuggestion = (from command in this._suggestions
-                                         orderby this.RenderAutoCompleteLine(command).Length descending
-                                         select this.RenderAutoCompleteLine(command)).First();
+                var longestSuggestion = (from command in _suggestions
+                                         orderby RenderAutoCompleteLine(command).Length descending
+                                         select RenderAutoCompleteLine(command)).First();
 
-                var size = g.MeasureString(longestSuggestion, this.font).ToSize();
+                var size = g.MeasureString(longestSuggestion, _font).ToSize();
 
-                var x = this._inputBoxRight;
-                var y = this._inputBoxBottom - 2;
+                var x = _inputBoxRight;
+                var y = _inputBoxBottom - 2;
 
-                var lines = Math.Min(this._suggestions.Count, 20);
+                var lines = Math.Min(_suggestions.Count, 20);
                 var h = (lines * size.Height) + 4 + 6;
                 var w = size.Width + 4 + 6;
 
                 g.FillRectangle(new SolidBrush(Color.FromArgb(0x44, 0x44, 0x44)), x, y, w, h);
                 g.DrawRectangle(new Pen(Color.FromArgb(0x22, 0x22, 0x22), 2f), x, y, w, h);
 
-                foreach (var line in this._suggestions)
+                foreach (var line in _suggestions)
                 {
-                    g.DrawString(this.RenderAutoCompleteLine(line), this.font, new SolidBrush(Color.White), x + 5, y + 5);
+                    g.DrawString(RenderAutoCompleteLine(line), _font, new SolidBrush(Color.White), x + 5, y + 5);
 
                     y += size.Height;
                 }
@@ -821,12 +817,12 @@ namespace GTA
         private void RenderOutputBox(Graphics g)
         {
             int x = 15;
-            int y = this._inputBoxBottom + 5;
+            int y = _inputBoxBottom + 5;
 
-            int w = this._screenX - 30;
-            int h = this._screenY - y - 15 - 2;
+            int w = _screenX - 30;
+            int h = _screenY - y - 15 - 2;
 
-            var size = g.MeasureString("a", this.font).ToSize();
+            var size = g.MeasureString("a", _font).ToSize();
 
             g.FillRectangle(new SolidBrush(Color.FromArgb(0xcc, 0x44, 0x44, 0x44)), x, y, w + 2, h + 2);
             g.DrawRectangle(new Pen(Color.FromArgb(0xcc, 0x22, 0x22, 0x22), 2f), x, y, w + 2, h + 2);
@@ -863,7 +859,7 @@ namespace GTA
                     text = text.Substring(8);
                 }
 
-                g.DrawString(text, this.font, new SolidBrush(color), x + 5, y);
+                g.DrawString(text, _font, new SolidBrush(color), x + 5, y);
 
                 y += size.Height;
                 i++;

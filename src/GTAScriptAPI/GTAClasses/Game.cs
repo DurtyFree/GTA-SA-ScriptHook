@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace GTA
 {
     public class TextDictionary
     {
-        private Dictionary<string, string> internalDict;
+        private readonly Dictionary<string, string> _internalDict;
 
         public TextDictionary()
         {
-            this.internalDict = new Dictionary<string, string>();
+            _internalDict = new Dictionary<string, string>();
         }
 
         public string this[string key]
@@ -21,13 +19,13 @@ namespace GTA
                 // compatibility requires key to be ToUpper-ed
                 key = key.ToUpper();
 
-                return this.internalDict[key];
+                return _internalDict[key];
             }
             set
             {
                 key = key.ToUpper();
 
-                this.internalDict[key] = value;
+                _internalDict[key] = value;
                 TextHook.RemoveCache(key);
             }
         }
@@ -35,13 +33,13 @@ namespace GTA
         public bool ContainsKey(string key)
         {
             key = key.ToUpper();
-            return this.internalDict.ContainsKey(key);
+            return _internalDict.ContainsKey(key);
         }
     }
 
     public class Game
     {
-        private static int _curID = 0;
+        private static int _curId = 0;
 
         public static string InstallFolder
         {
@@ -49,7 +47,7 @@ namespace GTA
             private set;
         }
 
-        public static TextDictionary CustomGXTs
+        public static TextDictionary CustomGxTs
         {
             get;
             set;
@@ -63,13 +61,13 @@ namespace GTA
         static Game()
         {
             //CustomGXTs = new Dictionary<string, string>();
-            CustomGXTs = new TextDictionary();
+            CustomGxTs = new TextDictionary();
 
             TextHook.RegisterCallback(key =>
             {
-                if (CustomGXTs.ContainsKey(key))
+                if (CustomGxTs.ContainsKey(key))
                 {
-                    return CustomGXTs[key];
+                    return CustomGxTs[key];
                 }
 
                 return null;
@@ -97,31 +95,28 @@ namespace GTA
 
                 return new Time() { Hours = hh, Minutes = mm };
             }
-            set
-            {
-                Internal.Function.Call(0x00c0, value.Hours, value.Minutes);
-            }
+            set => Internal.Function.Call(0x00c0, value.Hours, value.Minutes);
         }
 
-        public static void PlaySound(int soundID)
+        public static void PlaySound(int soundId)
         {
-            PlaySound(soundID, new Vector3(0, 0, 0));
+            PlaySound(soundId, new Vector3(0, 0, 0));
         }
 
-        public static void PlaySound(int soundID, Vector3 at)
+        public static void PlaySound(int soundId, Vector3 at)
         {
-            Internal.Function.Call(0x097A, at, soundID);
+            Internal.Function.Call(0x097A, at, soundId);
         }
 
 #if GTA_SA
-        public static void PlayFrontendSound(FrontendSound soundID)
+        public static void PlayFrontendSound(FrontendSound soundId)
         {
-            PlayFrontendSound((int)soundID);
+            PlayFrontendSound((int)soundId);
         }
 
-        public static void PlayFrontendSound(int soundID)
+        public static void PlayFrontendSound(int soundId)
         {
-            NativeFunctions.PlayFrontendAudio(soundID);
+            NativeFunctions.PlayFrontendAudio(soundId);
         }
 #endif
 
@@ -191,17 +186,12 @@ namespace GTA
 #endif
         }
 
-        public static bool Fading
-        {
-            get
-            {
-                return Internal.Function.Call(0x016b);
-            }
-        }
+        public static bool Fading => Internal.Function.Call(0x016b);
+
         #endregion
 
         #region HUD
-        public static void ShowHUD(bool enabled)
+        public static void ShowHud(bool enabled)
         {
             Internal.Function.Call(0x0826, enabled);
         }
@@ -216,7 +206,7 @@ namespace GTA
             Internal.Function.Call(0x09ba, enabled);
         }
 
-        public static unsafe void RawHUDEnabled(bool enabled)
+        public static unsafe void RawHudEnabled(bool enabled)
         {
 #if GTA_SA
             *(byte*)0xBA6769 = (enabled) ? (byte)1 : (byte)0;
@@ -268,15 +258,15 @@ namespace GTA
 
         private static string RegisterKey(string value)
         {
-            string key = "NET" + _curID.ToString("X4"); // unique identifier based on key
-            CustomGXTs[key] = value;
+            string key = "NET" + _curId.ToString("X4"); // unique identifier based on key
+            CustomGxTs[key] = value;
 
-            _curID++;
+            _curId++;
 
             // prevent overflow/full memory
-            if (_curID >= 0xFFF)
+            if (_curId >= 0xFFF)
             {
-                _curID = 0;
+                _curId = 0;
             }
 
             return key;

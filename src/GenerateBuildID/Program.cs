@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 
@@ -19,11 +16,11 @@ namespace GenerateBuildID
                 var data = file.ReadToEnd();
                 file.Close();
 
-                string dateID = DateTime.Now.ToString("yyyy.MM.dd.HHmm");
+                string dateId = DateTime.Now.ToString("yyyy.MM.dd.HHmm");
 
                 // generate new strings
                 string genVersion = "// ##GENVERSION\r\n";
-                genVersion += "[assembly:AssemblyVersionAttribute(\"" + dateID + "\")];\r\n";
+                genVersion += "[assembly:AssemblyVersionAttribute(\"" + dateId + "\")];\r\n";
                 genVersion += "// #/GENVERSION";
 
                 //string buildDate = = "// ##GENBDATE\r\n";

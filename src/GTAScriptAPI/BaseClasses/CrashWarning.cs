@@ -6,7 +6,7 @@ namespace GTA
     {
         public override void OnGameStart()
         {
-            ScriptProcessor.Instance.ScriptCrashed += new Action<BaseScript, Exception>(this.Instance_ScriptCrashed);
+            ScriptProcessor.Instance.ScriptCrashed += new Action<BaseScript, Exception>(Instance_ScriptCrashed);
         }
 
         void Instance_ScriptCrashed(BaseScript script, Exception exception)

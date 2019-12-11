@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
-    public enum GTAKey
+    public enum GtaKey
     {
 #if !GTA_IV
         L1 = 4,
@@ -28,7 +23,7 @@ namespace GTA
 
     public class Controls
     {
-        public static bool KeyPressed(GTAKey key)
+        public static bool KeyPressed(GtaKey key)
         {
             return Internal.Function.Call(0x00E1, 0, (int)key);
         }

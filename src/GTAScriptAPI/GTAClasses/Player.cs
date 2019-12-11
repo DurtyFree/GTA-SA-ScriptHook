@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
     public class Player : HandleObject
     {
@@ -20,7 +15,7 @@ namespace GTA
         public Ped Character { get; set; }
 
 #if GTA_SA
-        public void ForceWeapon(WeaponID type)
+        public void ForceWeapon(WeaponId type)
         {
             var weapon = new WeaponType(null, type);
             GTAUtils.SetPlayerWeaponSlot(weapon.Slot);
@@ -40,21 +35,9 @@ namespace GTA
             }
         }
 
-        public bool Defined
-        {
-            get
-            {
-                return Internal.Function.Call(0x0256, this);
-            }
-        }
+        public bool Defined => Internal.Function.Call(0x0256, this);
 
-        public Group Group
-        {
-            get
-            {
-                return Group.FromPlayer(this);
-            }
-        }
+        public Group Group => Group.FromPlayer(this);
 
         public bool Driveby
         {
@@ -62,51 +45,33 @@ namespace GTA
             {
                 if (value)
                 {
-                    this.Character.Tasks.DriveBy();
-                    GTA.Internal.Function.Call(0x0501, this, true);
+                    Character.Tasks.DriveBy();
+                    Internal.Function.Call(0x0501, this, true);
                 }
                 else
                 {
-                    GTA.Internal.Function.Call(0x0501, this, false);
-                    this.Character.Tasks.ClearAll();
+                    Internal.Function.Call(0x0501, this, false);
+                    Character.Tasks.ClearAll();
                 }
             }
         }
 
-        public int Money
-        {
-            get
-            {
-                return Internal.Function.Call<int>(0x010b, this);
-            }
-        }
+        public int Money => Internal.Function.Call<int>(0x010b, this);
 
         public bool CanControlCharacter
         {
-            get
-            {
-                return Internal.Function.Call(0x03EE, this);
-            }
-            set
-            {
-                Internal.Function.Call(0x01B4, this, value);
-            }
+            get => Internal.Function.Call(0x03EE, this);
+            set => Internal.Function.Call(0x01B4, this, value);
         }
 
         public bool IgnoredByEveryone
         {
-            set
-            {
-                Internal.Function.Call(0x03BF, this, value);
-            }
+            set => Internal.Function.Call(0x03BF, this, value);
         }
 
         public int WantedLevel
         {
-            get
-            {
-                return Internal.Function.Call<int>(0x01c0, this);
-            }
+            get => Internal.Function.Call<int>(0x01c0, this);
             set
             {
                 if (value <= 6)
@@ -118,10 +83,7 @@ namespace GTA
 
         public int MaximumWantedLevel
         {
-            get
-            {
-                return Internal.Function.Call<int>(0x050F);
-            }
+            get => Internal.Function.Call<int>(0x050F);
             set
             {
                 if (value <= 6)
@@ -131,11 +93,11 @@ namespace GTA
             }
         }
 
-        public PedID Model
+        public PedId Model
         {
             set
             {
-                if (value == PedID.@null || (value >= PedID.special01 && value <= PedID.special10))
+                if (value == PedId.Null || (value >= PedId.Special01 && value <= PedId.Special10))
                 {
                     Internal.Function.Call(0x09C7, this, (int)value);
                 }

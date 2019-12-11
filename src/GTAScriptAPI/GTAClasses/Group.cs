@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GTA
 {
@@ -22,7 +19,7 @@ namespace GTA
 
         public void AddPed(Ped ped)
         {
-            this.AddPed(ped, false);
+            AddPed(ped, false);
         }
 
         public void AddPed(Ped ped, bool isLeader)
@@ -54,19 +51,10 @@ namespace GTA
 
         public float MaxDistance
         {
-            set
-            {
-                Internal.Function.Call(0x06F0, this, value);
-            }
+            set => Internal.Function.Call(0x06F0, this, value);
         }
 
-        public int MemberCount
-        {
-            get
-            {
-                return Internal.Function.Call<int>(0x07F6, this, new VarPointer());
-            }
-        }
+        public int MemberCount => Internal.Function.Call<int>(0x07F6, this, new VarPointer());
 
         public int LeaderCount
         {
@@ -82,7 +70,7 @@ namespace GTA
         {
             get
             {
-                int count = this.MemberCount; // possible '+ LeaderCount?'
+                int count = MemberCount; // possible '+ LeaderCount?'
                 List<Ped> retval = new List<Ped>();
 
                 for (int i = 0; i < count; i++)
