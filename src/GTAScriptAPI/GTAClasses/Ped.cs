@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
     public class Ped : HandleObject
     {
@@ -11,10 +6,7 @@ namespace GTA
         public Ped() { }
         public Ped(int handle) : base(handle) { }
 
-        public static explicit operator Ped(int source)
-        {
-            return new Ped(source);
-        }
+        public static explicit operator Ped(int source) => new Ped(source);
         #endregion
 
         private PedTasks _tasks;
@@ -24,12 +16,12 @@ namespace GTA
         {
             get
             {
-                if (_weapons == null)
+                if (this._weapons == null)
                 {
-                    _weapons = new WeaponsCollection(this);
+                    this._weapons = new WeaponsCollection(this);
                 }
 
-                return _weapons;
+                return this._weapons;
             }
         }
 
@@ -37,12 +29,12 @@ namespace GTA
         {
             get
             {
-                if (_tasks == null)
+                if (this._tasks == null)
                 {
-                    _tasks = new PedTasks(this);
+                    this._tasks = new PedTasks(this);
                 }
 
-                return _tasks;
+                return this._tasks;
             }
         }
 

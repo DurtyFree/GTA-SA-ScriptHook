@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using GTA.Internal;
+﻿using GTA.Internal;
 
 namespace GTA
 {
@@ -13,12 +9,12 @@ namespace GTA
 
         public HandleObject()
         {
-            Handle = 0;
+            this.Handle = 0;
         }
 
         public HandleObject(int handle)
         {
-            Handle = handle;
+            this.Handle = handle;
         }
 
         public static implicit operator Parameter(HandleObject source)
@@ -38,10 +34,11 @@ namespace GTA
 
         public override bool Equals(object obj)
         {
-            return (obj == this);
+            return this == (HandleObject)obj;
         }
 
-        public static bool operator ==(HandleObject left, HandleObject right) {
+        public static bool operator ==(HandleObject left, HandleObject right)
+        {
             if (object.ReferenceEquals(left, null))
             {
                 return (object.ReferenceEquals(right, null));
@@ -62,7 +59,7 @@ namespace GTA
 
         public override int GetHashCode()
         {
-            return Handle;
+            return this.Handle;
         }
     }
 }

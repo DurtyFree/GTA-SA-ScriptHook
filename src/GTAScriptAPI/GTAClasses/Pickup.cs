@@ -31,7 +31,7 @@ namespace GTA
         {
             while (true)
             {
-                Wait(0);
+                this.Wait(0);
 
                 try
                 {
@@ -142,7 +142,7 @@ namespace GTA
         {
             get
             {
-                return _origPos;
+                return this._origPos;
             }
         }
     }

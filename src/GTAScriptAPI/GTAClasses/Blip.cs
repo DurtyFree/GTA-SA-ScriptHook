@@ -17,7 +17,7 @@ namespace GTA
         {
             get
             {
-                return _r;
+                return this._r;
             }
         }
 
@@ -25,7 +25,7 @@ namespace GTA
         {
             get
             {
-                return _g;
+                return this._g;
             }
         }
 
@@ -33,7 +33,7 @@ namespace GTA
         {
             get
             {
-                return _b;
+                return this._b;
             }
         }
 
@@ -41,7 +41,7 @@ namespace GTA
         {
             get
             {
-                return _a;
+                return this._a;
             }
         }
 
@@ -139,10 +139,10 @@ namespace GTA
 
         public BlipColor(byte r, byte g, byte b, byte a)
         {
-            _r = r;
-            _g = g;
-            _b = b;
-            _a = a;
+            this._r = r;
+            this._g = g;
+            this._b = b;
+            this._a = a;
         }
 
         public uint Value
@@ -156,7 +156,7 @@ namespace GTA
                 uint cB = 256;
                 uint cA = 1;
 
-                return ((R * cR) + (G * cG) + (B * cB) + (A * cA));
+                return ((this.R * cR) + (this.G * cG) + (this.B * cB) + (this.A * cA));
             }
         }
     }
@@ -177,8 +177,8 @@ namespace GTA
 
         public Blip()
         {
-            currentColor = BlipColor.Default;
-            currentIcon = BlipIcon.Misc_Destination;
+            this.currentColor = BlipColor.Default;
+            this.currentIcon = BlipIcon.Misc_Destination;
         }
 
         public static Blip AddBlip(Vector3 position, BlipIcon icon)
@@ -241,11 +241,11 @@ namespace GTA
         {
             get
             {
-                return currentColor;
+                return this.currentColor;
             }
             set
             {
-                currentColor = value;
+                this.currentColor = value;
                 Internal.Function.Call(0x0165, this, (int)value.Value);
             }
         }
@@ -254,7 +254,7 @@ namespace GTA
         {
             get
             {
-                return lastPosition;
+                return this.lastPosition;
             }
         }
 
@@ -278,7 +278,7 @@ namespace GTA
         {
             get
             {
-                return currentIcon;
+                return this.currentIcon;
             }
         }
 

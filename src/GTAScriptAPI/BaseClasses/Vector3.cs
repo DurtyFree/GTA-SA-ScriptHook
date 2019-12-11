@@ -22,24 +22,24 @@ namespace GTA
 
         public float pX, pY, pZ;
 
-        public float X { get { return pX; } set { pX = value; } }
-        public float Y { get { return pY; } set { pY = value; } }
-        public float Z { get { return pZ; } set { pZ = value; } }
+        public float X { get { return this.pX; } set { this.pX = value; } }
+        public float Y { get { return this.pY; } set { this.pY = value; } }
+        public float Z { get { return this.pZ; } set { this.pZ = value; } }
 
         public Vector3(float x, float y) : this(x, y, 0f) { }
 
         public Vector3(float x, float y, float z)
         {
-            pX = x;
-            pY = y;
-            pZ = z;
+            this.pX = x;
+            this.pY = y;
+            this.pZ = z;
         }
 
         public Vector3(SVector old)
         {
-            pX = old.pX;
-            pY = old.pY;
-            pZ = old.pZ;
+            this.pX = old.pX;
+            this.pY = old.pY;
+            this.pZ = old.pZ;
         }
 
         public float DistanceTo2D(Vector3 other)
@@ -62,7 +62,7 @@ namespace GTA
 
         public float Length()
         {
-            return (float)Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
+            return (float)Math.Sqrt((this.X * this.X) + (this.Y * this.Y) + (this.Z * this.Z));
         }
 
         public Vector3 Around(float distance)
@@ -82,14 +82,14 @@ namespace GTA
 
         public void Normalize()
         {
-            var length = Length();
+            var length = this.Length();
 
             if (length > 0)
             {
                 var factor = 1.0f / length;
-                X = X * factor;
-                Y = Y * factor;
-                Z = Z * factor;
+                this.X *= factor;
+                this.Y *= factor;
+                this.Z *= factor;
             }
         }
 
@@ -170,7 +170,7 @@ namespace GTA
 
         public SVector ToSVector()
         {
-            return new SVector(X, Y, Z);
+            return new SVector(this.X, this.Y, this.Z);
         }
 
 #if GTA_SA
@@ -220,7 +220,7 @@ namespace GTA
 
         public override string ToString()
         {
-            return string.Format("({0},{1},{2})", X, Y, Z);
+            return string.Format("({0},{1},{2})", this.X, this.Y, this.Z);
         }
     }
 }

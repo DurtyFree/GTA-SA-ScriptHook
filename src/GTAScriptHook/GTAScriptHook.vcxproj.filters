@@ -6,23 +6,23 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files\Scripting">
-      <UniqueIdentifier>{1be6e643-dae0-454c-94d4-19b568418143}</UniqueIdentifier>
+      <UniqueIdentifier>{fdac0aab-bbf3-4878-89aa-a45b49fc04db}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\SA">
-      <UniqueIdentifier>{de38b7cb-c591-4211-adf1-67bd256620d6}</UniqueIdentifier>
+      <UniqueIdentifier>{93169592-6f46-4360-bd4e-a0c9d8497cda}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Fibers">
-      <UniqueIdentifier>{2c71388d-cb7a-4c2d-9410-20e1282d79a3}</UniqueIdentifier>
+      <UniqueIdentifier>{36d28cac-0979-4dcd-b069-43c530d4c136}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files\Scripting">
-      <UniqueIdentifier>{6460a5e0-40ee-47b5-bd4a-b3b023dbcc39}</UniqueIdentifier>
+      <UniqueIdentifier>{295ad45b-183d-4940-a0a4-420e97c1692a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\SA">
-      <UniqueIdentifier>{875ab8c8-df2a-4d77-a61b-ac80c914296b}</UniqueIdentifier>
+      <UniqueIdentifier>{5db4a620-6659-4ad2-81e1-8bb2cdcb6160}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>

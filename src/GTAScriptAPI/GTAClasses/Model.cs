@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace GTA
 {
@@ -116,17 +114,22 @@ namespace GTA
             {
                 var v = str[index];
 
-                if (quoted && (v == '"')) break;
+                if (quoted && (v == '"'))
+                {
+                    break;
+                }
 
                 if (v == '\\')
+                {
                     v = '/';
+                }
 
                 temp = v;
-                temp = temp + value;
+                temp += value;
                 value = temp << 10;
                 temp += value;
                 value = temp >> 6;
-                value = value ^ temp;
+                value ^= temp;
             }
 
             temp = value << 3;
@@ -137,12 +140,15 @@ namespace GTA
 
             value = temp2 + temp;
 
-            if (value < 2) value += 2;
+            if (value < 2)
+            {
+                value += 2;
+            }
 
             return value;
         }
 
-        private int _id;
+        private readonly int id;
 
         public Model(string name)
         {
@@ -155,7 +161,7 @@ namespace GTA
 
                 if (int.TryParse(name, out model))
                 {
-                    _id = model;
+                    this.id = model;
                 }
                 else
                 {
@@ -164,7 +170,7 @@ namespace GTA
             }
             else
             {
-                _id = Models[name.ToLower()];
+                this.id = Models[name.ToLower()];
             }
 #else
             _id = (int)Hash(name);
@@ -173,15 +179,15 @@ namespace GTA
 
         public Model(int id)
         {
-            _id = id;
+            this.id = id;
         }
 
         public void Load()
         {
-            Internal.Function.Call(0x0247, ID);
+            Internal.Function.Call(0x0247, this.ID);
             Internal.Function.Call(0x038B);
 
-            while (!Loaded)
+            while (!this.Loaded)
             {
                 GTAUtils.Wait(0);
             }
@@ -189,7 +195,7 @@ namespace GTA
 
         public void Release()
         {
-            Internal.Function.Call(0x0249, ID);
+            Internal.Function.Call(0x0249, this.ID);
         }
 
         public static implicit operator Model(int source)
@@ -207,7 +213,8 @@ namespace GTA
             return new Internal.Parameter(source.ID);
         }
 
-        public static bool operator ==(Model left, Model right) {
+        public static bool operator ==(Model left, Model right)
+        {
             return left.Equals(right);
         }
 
@@ -218,7 +225,7 @@ namespace GTA
 
         public override int GetHashCode()
         {
-            return _id;
+            return this.id;
         }
 
         public override bool Equals(object obj)
@@ -228,7 +235,7 @@ namespace GTA
 
         public override string ToString()
         {
-            return "#" + _id.ToString();
+            return "#" + this.id.ToString();
         }
 
         public bool Loaded
@@ -237,7 +244,7 @@ namespace GTA
             {
                 try
                 {
-                    if (Internal.Function.Call(0x0248, _id))
+                    if (Internal.Function.Call(0x0248, this.id))
                     {
                         return true;
                     }
@@ -254,7 +261,7 @@ namespace GTA
             {
                 try
                 {
-                    Internal.Function.Call(0x0248, _id);
+                    Internal.Function.Call(0x0248, this.id);
                     return true;
                 }
                 catch (AccessViolationException)
@@ -264,13 +271,7 @@ namespace GTA
             }
         }
 
-        public int ID
-        {
-            get
-            {
-                return _id;
-            }
-        }
+        public int ID => this.id;
 
         public static void Load(Model model)
         {

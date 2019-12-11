@@ -91,7 +91,7 @@ namespace GTA
                 if (Model.IsKnown(modelName))
                 {
                     var model = new Model(modelName);
-                    Player.Model = (PedID)model.ID;
+                    this.Player.Model = (PedID)model.ID;
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace GTA
                                 Console.Print("@#ff0000No such special model exists.");
                             }
 
-                            Player.Model = PedID.special07;
+                            this.Player.Model = PedID.special07;
 
                             Internal.Function.Call(0x023e, 7);
                         }
@@ -210,11 +210,11 @@ namespace GTA
             }
 #endif
 
-            WantedConsoleCommand wCommand = new WantedConsoleCommand(Player, false);
+            WantedConsoleCommand wCommand = new WantedConsoleCommand(this.Player, false);
             wCommand.HelpText = "The player's current wanted level";
             Console.Register(wCommand);
 
-            WantedConsoleCommand wCommand2 = new WantedConsoleCommand(Player, true);
+            WantedConsoleCommand wCommand2 = new WantedConsoleCommand(this.Player, true);
             wCommand2.HelpText = "The player's maximum wanted level";
             Console.Register(wCommand2);
 
@@ -245,12 +245,12 @@ namespace GTA
         public WantedConsoleCommand(Player player, bool isMax)
             : base("v_wantedlevel", "")
         {
-            _player = player;
-            _isMax = isMax;
+            this._player = player;
+            this._isMax = isMax;
 
-            if (_isMax)
+            if (this._isMax)
             {
-                Name = "v_maxwantedlevel";
+                this.Name = "v_maxwantedlevel";
             }
         }
 
@@ -258,13 +258,13 @@ namespace GTA
         {
             get
             {
-                if (!_isMax)
+                if (!this._isMax)
                 {
-                    return _player.WantedLevel.ToString();
+                    return this._player.WantedLevel.ToString();
                 }
                 else
                 {
-                    return _player.MaximumWantedLevel.ToString();
+                    return this._player.MaximumWantedLevel.ToString();
                 }
             }
             set
@@ -274,13 +274,13 @@ namespace GTA
                     return;
                 }
 
-                if (!_isMax)
+                if (!this._isMax)
                 {
-                    _player.WantedLevel = int.Parse(value);
+                    this._player.WantedLevel = int.Parse(value);
                 }
                 else
                 {
-                    _player.MaximumWantedLevel = int.Parse(value);
+                    this._player.MaximumWantedLevel = int.Parse(value);
                 }
             }
         }
@@ -294,28 +294,28 @@ namespace GTA
         public StatConsoleCommand(int statID, bool isFloat)
             : base("stat_" + statID, "")
         {
-            _statID = statID;
-            _isFloat = isFloat;
+            this._statID = statID;
+            this._isFloat = isFloat;
         }
 
         public StatConsoleCommand(int statID, bool isFloat, string friendlyName)
             : base("stat_" + friendlyName, "")
         {
-            _statID = statID;
-            _isFloat = isFloat;
+            this._statID = statID;
+            this._isFloat = isFloat;
         }
 
         public override string Value
         {
             get
             {
-                if (_isFloat)
+                if (this._isFloat)
                 {
-                    return Game.GetStatFloat(_statID).ToString();
+                    return Game.GetStatFloat(this._statID).ToString();
                 }
                 else
                 {
-                    return Game.GetStatInt(_statID).ToString();
+                    return Game.GetStatInt(this._statID).ToString();
                 }
             }
             set
@@ -327,13 +327,13 @@ namespace GTA
 
                 base.Value = value;
 
-                if (_isFloat)
+                if (this._isFloat)
                 {
-                    Game.SetStatFloat(_statID, float.Parse(value));
+                    Game.SetStatFloat(this._statID, float.Parse(value));
                 }
                 else
                 {
-                    Game.SetStatInt(_statID, int.Parse(value));
+                    Game.SetStatInt(this._statID, int.Parse(value));
                 }
             }
         }

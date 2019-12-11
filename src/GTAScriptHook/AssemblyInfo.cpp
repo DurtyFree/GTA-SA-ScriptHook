@@ -32,12 +32,10 @@ using namespace System::Security::Permissions;
 // by using the '*' as shown below:
 
 // ##GENVERSION
-[assembly:AssemblyVersionAttribute("2019.11.22.2337")];
+[assembly:AssemblyVersionAttribute("2019.11.26.0033")];
 // #/GENVERSION
 //
 
 [assembly:ComVisible(false)];
 
 [assembly:CLSCompliantAttribute(true)];
-
-[assembly:SecurityPermission(SecurityAction::RequestMinimum, UnmanagedCode = true)];

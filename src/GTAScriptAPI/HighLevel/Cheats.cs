@@ -35,10 +35,10 @@ namespace GTA
         {
             while (true)
             {
-                Wait(0);
+                this.Wait(0);
 
-                BuildBuffer();
-                CheckRegistry();
+                this.BuildBuffer();
+                this.CheckRegistry();
             }
         }
 

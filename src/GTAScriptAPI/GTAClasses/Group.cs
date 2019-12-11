@@ -22,7 +22,7 @@ namespace GTA
 
         public void AddPed(Ped ped)
         {
-            AddPed(ped, false);
+            this.AddPed(ped, false);
         }
 
         public void AddPed(Ped ped, bool isLeader)
@@ -82,7 +82,7 @@ namespace GTA
         {
             get
             {
-                int count = MemberCount; // possible '+ LeaderCount?'
+                int count = this.MemberCount; // possible '+ LeaderCount?'
                 List<Ped> retval = new List<Ped>();
 
                 for (int i = 0; i < count; i++)

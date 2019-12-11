@@ -62,13 +62,13 @@ namespace GTA
             {
                 if (value)
                 {
-                    Character.Tasks.DriveBy();
+                    this.Character.Tasks.DriveBy();
                     GTA.Internal.Function.Call(0x0501, this, true);
                 }
                 else
                 {
                     GTA.Internal.Function.Call(0x0501, this, false);
-                    Character.Tasks.ClearAll();
+                    this.Character.Tasks.ClearAll();
                 }
             }
         }

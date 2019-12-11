@@ -9,8 +9,8 @@ namespace GTA
     {
         public Time(int hours, int minutes) : this()
         {
-            Hours = hours;
-            Minutes = minutes;
+            this.Hours = hours;
+            this.Minutes = minutes;
         }
 
         public int Hours { get; set; }
@@ -28,7 +28,7 @@ namespace GTA
         {
             get
             {
-                return _r;
+                return this._r;
             }
         }
 
@@ -36,7 +36,7 @@ namespace GTA
         {
             get
             {
-                return _g;
+                return this._g;
             }
         }
 
@@ -44,7 +44,7 @@ namespace GTA
         {
             get
             {
-                return _b;
+                return this._b;
             }
         }
 
@@ -52,11 +52,11 @@ namespace GTA
         {
             get
             {
-                return _a;
+                return this._a;
             }
             set
             {
-                _a = value;
+                this._a = value;
             }
         }
 
@@ -68,10 +68,10 @@ namespace GTA
 
         public GTAColor(byte r, byte g, byte b, byte a)
         {
-            _r = r;
-            _g = g;
-            _b = b;
-            _a = a;
+            this._r = r;
+            this._g = g;
+            this._b = b;
+            this._a = a;
         }
     }
 }

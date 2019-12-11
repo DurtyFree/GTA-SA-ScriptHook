@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GTA
+﻿namespace GTA
 {
     public enum VehicleSeat
     {
@@ -18,6 +13,8 @@ namespace GTA
         #region HandleObject fuckups
         public Vehicle() { }
         public Vehicle(int handle) : base(handle) { }
+
+        public static explicit operator Vehicle(int source) => new Vehicle(source);
         #endregion
 
         public void NoLongerNeeded()

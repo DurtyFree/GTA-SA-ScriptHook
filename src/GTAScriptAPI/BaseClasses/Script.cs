@@ -12,9 +12,9 @@ namespace GTA
 
         public override void OnStart() {
 #if !GTA_SCO
-            Player = (Player)new Player(GlobalVariable.Get(2).Value);
+            this.Player = (Player)new Player(GlobalVariable.Get(2).Value);
 #if GTA_SA
-            Player.Character = (Ped)new Ped(GlobalVariable.Get(3).Value);
+            this.Player.Character = (Ped)new Ped(GlobalVariable.Get(3).Value);
 #endif
 #if GTA_III
             Player.Character = (Ped)new Ped(GlobalVariable.Get(11).Value);
@@ -33,17 +33,17 @@ namespace GTA
 
         public TickScript()
         {
-            Interval = 100;
+            this.Interval = 100;
         }
 
         public override void Run()
         {
             while (true)
             {
-                ProcessKeyBindings();
-                OnTick();
+                this.ProcessKeyBindings();
+                this.OnTick();
 
-                Wait(Interval);
+                this.Wait(this.Interval);
             }
         }
 

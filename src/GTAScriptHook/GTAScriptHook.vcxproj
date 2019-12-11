@@ -125,8 +125,8 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy /y "$(TargetPath)" "$(SolutionDir)Output\GTAScriptHook.dll*"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -292,6 +292,7 @@ copy /y "$(TargetPath)" "S:\games\gta san andreas\citizen\install\GTAScriptHook.
   <ItemGroup>
     <ProjectReference Include="..\GenerateBuildID\GenerateBuildID.csproj">
       <Project>{20d45210-346a-4c25-9f05-fa01450ce5f7}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

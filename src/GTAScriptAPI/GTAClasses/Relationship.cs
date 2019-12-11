@@ -53,7 +53,7 @@ namespace GTA
     {
         private Relationships(RelationshipGroup id)
         {
-            _pedType = id;
+            this._pedType = id;
         }
 
         private RelationshipGroup _pedType;
@@ -62,18 +62,18 @@ namespace GTA
         {
             get
             {
-                return _pedType;
+                return this._pedType;
             }
         }
 
         public void SetRelationTo(RelationshipGroup target, RelationshipType relation)
         {
-            Internal.Function.Call(0x0746, (int)relation, (int)_pedType, (int)target);
+            Internal.Function.Call(0x0746, (int)relation, (int)this._pedType, (int)target);
         }
 
         public void RemoveRelationTo(RelationshipGroup target, RelationshipType relation)
         {
-            Internal.Function.Call(0x0747, (int)relation, (int)_pedType, (int)target);
+            Internal.Function.Call(0x0747, (int)relation, (int)this._pedType, (int)target);
         }
 
         private static Dictionary<RelationshipGroup, Relationships> _instanceCache;
