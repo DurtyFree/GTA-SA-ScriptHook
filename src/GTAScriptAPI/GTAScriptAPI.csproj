@@ -121,7 +121,6 @@
     <Compile Include="HighLevel\Console.cs" />
     <Compile Include="HighLevel\Defer.cs" />
     <Compile Include="HighLevel\TextDraw.cs" />
-    <Compile Include="TestScript1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
