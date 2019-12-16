@@ -1,4 +1,5 @@
-﻿using GTA.Internal;
+﻿using System;
+using GTA.Internal;
 
 namespace GTA
 {
@@ -60,6 +61,36 @@ namespace GTA
         public override int GetHashCode()
         {
             return Handle;
+        }
+
+        /// <summary>
+        /// Handle is added as the first parameter
+        /// </summary>
+        /// <param name="opCode"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public bool OpCodeCallOnHandle(OpCodes opCode, params Parameter[] parameters) => OpCode.Call(opCode, this.GetCallParameter(parameters));
+
+        /// <summary>
+        /// Handle is added as the first parameter
+        /// </summary>
+        /// <typeparam name="TReturn"></typeparam>
+        /// <param name="opCode"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public TReturn OpCodeCallOnHandle<TReturn>(OpCodes opCode, params Parameter[] parameters) => OpCode.Call<TReturn>(opCode, this.GetCallParameter(parameters));
+
+        private Parameter[] GetCallParameter(Parameter[] parameters)
+        {
+            var param = new Parameter[parameters.Length + 1];
+            param[0] = this;
+
+            if (parameters.Length > 0)
+            {
+                Buffer.BlockCopy(parameters, 0, param, 1, parameters.Length);
+            }
+
+            return param;
         }
     }
 }
