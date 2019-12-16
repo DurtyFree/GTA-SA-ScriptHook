@@ -27,6 +27,11 @@
             Internal.Function.Call(0x00a6, this);
         }
 
+        public void SetInvisible(bool state)
+        {
+            Internal.Function.Call(0x0338, this, state);
+        }
+
         public void MakeProofTo(bool bullets, bool fire, bool explosions, bool collisions, bool meleeAttacks)
         {
             Internal.Function.Call(0x02ac, this, bullets, fire, explosions, collisions, meleeAttacks);
