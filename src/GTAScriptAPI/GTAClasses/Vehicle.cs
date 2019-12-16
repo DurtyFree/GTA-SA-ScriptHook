@@ -1,4 +1,6 @@
-﻿namespace GTA
+﻿using GTA.GTAClasses.DataTypes;
+
+namespace GTA
 {
     public enum VehicleSeat
     {
@@ -27,10 +29,15 @@
             Internal.Function.Call(0x00a6, this);
         }
 
-        public void SetInvisible(bool state)
-        {
-            Internal.Function.Call(0x0338, this, state);
-        }
+        public void SetInvisible(bool state) => OpCode.Call(OpCodes.SET_CAR_VISIBLE, this, state);
+
+        public void SetHeavy(bool state) => OpCode.Call(OpCodes.SET_CAR_HEAVY, this, state);
+
+        public void Explode() => OpCode.Call(OpCodes.EXPLODE_CAR, this);
+
+        public void DriveToCoords(float x, float y, float z) => OpCode.Call(OpCodes.CAR_GOTO_COORDINATES, this, x, y, z);
+
+        public int GetMaxNumbersOfPassengers() => OpCode.Call<int>(OpCodes.GET_MAXIMUM_NUMBER_OF_PASSENGERS, this);
 
         public void MakeProofTo(bool bullets, bool fire, bool explosions, bool collisions, bool meleeAttacks)
         {
@@ -74,14 +81,14 @@
 
         public int Health
         {
-            get => Internal.Function.Call<int>(0x0227, this);
-            set => Internal.Function.Call(0x0224, this, value);
+            get => OpCode.Call<int>(OpCodes.GET_CAR_HEALTH, this);
+            set => OpCode.Call(OpCodes.SET_CAR_HEALTH, this, value);
         }
 
-        public VehicleLock LockStatus
+        public LockDoorTyp LockStatus
         {
-            get => (VehicleLock)Internal.Function.Call<int>(0x09B3, this);
-            set => Internal.Function.Call(0x020A, this, (int)value);
+            get => (LockDoorTyp)OpCode.Call<int>(OpCodes.GET_CAR_DOOR_LOCK_STATUS, this);
+            set => OpCode.Call(OpCodes.LOCK_CAR_DOORS, this, (int)value);
         }
 
         public float Speed

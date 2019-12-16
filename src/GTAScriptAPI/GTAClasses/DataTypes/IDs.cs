@@ -1,13 +1,5 @@
 ﻿namespace GTA
 {
-    public enum VehicleLock
-    {
-        Unlocked = 1,
-        Locked = 2,
-        Unknown3 = 3,
-        LockedInside = 4
-    }
-
     public enum TextStyle
     {
         MissionPassed = 1,

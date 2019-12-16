@@ -45,18 +45,20 @@
             {
                 if (value)
                 {
-                    Character.Tasks.DriveBy();
+                    this.Character.Tasks.DriveBy();
                     Internal.Function.Call(0x0501, this, true);
                 }
                 else
                 {
                     Internal.Function.Call(0x0501, this, false);
-                    Character.Tasks.ClearAll();
+                    this.Character.Tasks.ClearAll();
                 }
             }
         }
 
         public int Money => Internal.Function.Call<int>(0x010b, this);
+
+        public bool IsInVehicle => this.Character?.CurrentVehicle != null;
 
         public bool CanControlCharacter
         {

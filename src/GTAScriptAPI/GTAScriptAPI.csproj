@@ -102,6 +102,7 @@
     <Compile Include="GTAClasses\Camera.cs" />
     <Compile Include="GTAClasses\Controls.cs" />
     <Compile Include="GTAClasses\DataTypes\IDs.cs" />
+    <Compile Include="GTAClasses\DataTypes\LockDoorTyp.cs" />
     <Compile Include="GTAClasses\DataTypes\Structs.cs" />
     <Compile Include="GTAClasses\Draw.cs" />
     <Compile Include="GTAClasses\Game.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="HighLevel\Console.cs" />
     <Compile Include="HighLevel\Defer.cs" />
     <Compile Include="HighLevel\TextDraw.cs" />
+    <Compile Include="OpCodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
