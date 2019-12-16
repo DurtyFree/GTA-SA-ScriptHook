@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GTA.GTAClasses.DataTypes;
 
 namespace GTA
 {
@@ -49,7 +50,7 @@ namespace GTA
             var car = World.CreateVehicle(carId, position);
 
             Log.Debug("position car: " + car.Position.ToString());
-            car.LockStatus = VehicleLock.Unlocked;
+            car.LockStatus = LockDoorTyp.Unlocked;
             car.NoLongerNeeded();
         }
 
