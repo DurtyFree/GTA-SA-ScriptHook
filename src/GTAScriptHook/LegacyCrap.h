@@ -575,7 +575,7 @@ public:
 	float	Alpha;
 	float	AlphaSpeed;
 	float	FOV;
-    float	FOVSpeed;
+	float	FOVSpeed;
 	float	Beta;
 	float	BetaSpeed;
 	float	Distance; // 232
@@ -620,7 +620,7 @@ public:
 	CVector m_cvecTargetCoorsForFudgeInter; // 360
 	CVector m_cvecCamFixedModeVector; // 372
 	CVector m_cvecCamFixedModeSource; // 384
-  	CVector m_cvecCamFixedModeUpOffSet; // 396
+	CVector m_cvecCamFixedModeUpOffSet; // 396
 	CVector m_vecLastAboveWaterCamPosition; //408  //helper for when the player has gone under the water
 
 	CVector m_vecBufferedPlayerBodyOffset; // 420
@@ -659,7 +659,7 @@ public:
 	bool 	m_bBelowGroundTrainNodesLoaded;
 	bool 	m_bCamDirectlyBehind;	
 	bool 	m_bCamDirectlyInFront;	
-  	bool	m_bCameraJustRestored;
+	bool	m_bCameraJustRestored;
 	bool 	m_bcutsceneFinished;
 	bool 	m_bCullZoneChecksOn;
 	bool 	m_bFirstPersonBeingUsed; // To indicate if the m_bFirstPersonBeingUsed viewer is being used.
@@ -667,13 +667,13 @@ public:
 	bool 	m_bIdleOn;
 	bool  	m_bInATunnelAndABigVehicle;
 	bool 	m_bInitialNodeFound;
-    bool 	m_bInitialNoNodeStaticsSet;
+	bool 	m_bInitialNoNodeStaticsSet;
 	bool   	m_bIgnoreFadingStuffForMusic;
 	bool  	m_bPlayerIsInGarage;
 	bool	m_bPlayerWasOnBike;
 	bool  	m_bJustCameOutOfGarage;
 	bool 	m_bJustInitalised;//Just so the speed thingy doesn't go mad right at the start
-    unsigned char 	m_bJust_Switched;//Variable to indicate that we have jumped somewhere, Raymond needs this for the audio engine
+	unsigned char 	m_bJust_Switched;//Variable to indicate that we have jumped somewhere, Raymond needs this for the audio engine
 	bool 	m_bLookingAtPlayer;
 	bool 	m_bLookingAtVector;
 	bool 	m_bMoveCamToAvoidGeom;
@@ -685,7 +685,7 @@ public:
 	unsigned char 	m_bStartingSpline;
 	bool 	m_bTargetJustBeenOnTrain; //this variable is needed to be able to restore the camera
 	bool 	m_bTargetJustCameOffTrain;
-    bool 	m_bUseSpecialFovTrain;
+	bool 	m_bUseSpecialFovTrain;
 	bool    m_bUseTransitionBeta;
 	bool 	m_bUseScriptZoomValuePed;
 	bool 	m_bUseScriptZoomValueCar;
@@ -719,7 +719,7 @@ public:
 	short	m_ModeForTwoPlayersNotBothInCar;
 
 	bool 	m_bGarageFixedCamPositionSet;
-    bool 	m_vecDoingSpecialInterPolation;
+	bool 	m_vecDoingSpecialInterPolation;
 	bool 	m_bScriptParametersSetForInterPol;
 
 	
@@ -739,9 +739,9 @@ public:
 										// the active camera or the worldviewer camera
 	unsigned int	m_uiCamShakeStart;			// When did the camera shake start.
 	unsigned int 	m_uiFirstPersonCamLastInputTime;
- 	unsigned int 	m_uiLongestTimeInMill;
-  	unsigned int 	m_uiNumberOfTrainCamNodes;
-    unsigned int 	m_uiTimeLastChange;
+	unsigned int 	m_uiLongestTimeInMill;
+	unsigned int 	m_uiNumberOfTrainCamNodes;
+	unsigned int 	m_uiTimeLastChange;
 	unsigned int 	m_uiTimeWeLeftIdle_StillNoInput;
 	unsigned int  m_uiTimeWeEnteredIdle;
 	unsigned int	m_uiTimeTransitionStart;	// When was the transition started ?
@@ -754,7 +754,7 @@ public:
 	int 	m_iWorkOutSpeedThisNumFrames;//duh	
 	int 	m_iNumFramesSoFar; //counter
 	int 	m_iCurrentTrainCamNode;//variable indicating which camera node we are at for the train
-  	int 	m_motionBlur;//to indicate that we are fading
+	int 	m_motionBlur;//to indicate that we are fading
 
 	int 	m_imotionBlurAddAlpha;
 	int 	m_iCheckCullZoneThisNumFrames; 
@@ -790,21 +790,21 @@ public:
 	float 	GenerationDistMultiplier;	// This takes into account the FOV but noy the standard LOD multiplier
 
 	float 	m_fAlphaSpeedAtStartInter;
-  	float	m_fAlphaWhenInterPol;
+	float	m_fAlphaWhenInterPol;
 	float 	m_fAlphaDuringInterPol;
 	float   m_fBetaDuringInterPol;
 	float 	m_fBetaSpeedAtStartInter;
-  	float 	m_fBetaWhenInterPol;
+	float 	m_fBetaWhenInterPol;
 	float 	m_fFOVWhenInterPol;
 	float 	m_fFOVSpeedAtStartInter;
 	float 	m_fStartingBetaForInterPol;
 	float 	m_fStartingAlphaForInterPol;
-  	float   m_PedOrientForBehindOrInFront;
+	float   m_PedOrientForBehindOrInFront;
 
 	float 	m_CameraAverageSpeed; //this is an average depending on how many frames we work it out
 	float 	m_CameraSpeedSoFar; //this is a running total
 	float	m_fCamShakeForce;			// How severe is the camera shake.
-    float 	m_fFovForTrain;
+	float 	m_fFovForTrain;
 	float 	m_fFOV_Wide_Screen;
 
 	float  	m_fNearClipScript;
@@ -1094,15 +1094,15 @@ public:
 	DWORD			m_nAmmoTotal;
 	DWORD			m_nTimer;
 	DWORD			m_Unknown;
-    DWORD           m_Unknown_2;
+	DWORD           m_Unknown_2;
 };
 
 class CPedSoundSAInterface
 {
 public:
-    BYTE ucPad1[0x92];
-    short m_sVoiceType;
-    short m_sVoiceID;
+	BYTE ucPad1[0x92];
+	short m_sVoiceType;
+	short m_sVoiceID;
 };
 
 class CPedSAInterface;
@@ -1110,7 +1110,7 @@ class CPedSAInterface;
 class CFightManagerInterface
 {
 public:
-    BYTE			Pad1 [ 16 ];
+	BYTE			Pad1 [ 16 ];
 	BYTE			UnknownState;
 	BYTE			Pad2 [ 3 ];
 	float			fStrafeState;
@@ -1133,7 +1133,7 @@ enum eWeaponSlot
 	WEAPONSLOT_TYPE_PARACHUTE,	//11
 	WEAPONSLOT_TYPE_DETONATOR,	//12
 
-    WEAPONSLOT_MAX
+	WEAPONSLOT_MAX
 };
 
 class CPedIntelligenceSAInterface 
@@ -1142,19 +1142,19 @@ public:
 // CEventHandlerHistory @ + 56
 	CPedSAInterface *           pPed;
 	DWORD               	    taskManager;	    // +4 (really CTaskManagerSAInterface)
-    BYTE                        bPad[16];
-    CFightManagerInterface *    fightInterface;     // +24
-    BYTE                        bPad2[184];
-    DWORD                       vehicleScanner;     // +212 (really CVehicleScannerSAInterface)
+	BYTE                        bPad[16];
+	CFightManagerInterface *    fightInterface;     // +24
+	BYTE                        bPad2[184];
+	DWORD                       vehicleScanner;     // +212 (really CVehicleScannerSAInterface)
 };
 
 class CTaskTimer
 {
 public:
-    DWORD dwTimeStart; // ?
-    DWORD dwTimeEnd; // ?
-    bool bSet;
-    bool bStopped;
+	DWORD dwTimeStart; // ?
+	DWORD dwTimeEnd; // ?
+	bool bSet;
+	bool bStopped;
 };
 
 class TaskVTBL
@@ -1201,12 +1201,12 @@ class CTaskSimpleGangDriveBySAInterface : public CTaskSimpleSAInterface
 {
 public:
 	bool m_bIsFinished;
-    bool m_bAnimsReferenced;
-    bool m_bSeatRHS;
-    bool m_bInRangeToShoot;
-    bool m_bInWeaponRange;
-    bool m_bReachedAbortRange;
-    bool m_bFromScriptCommand;
+	bool m_bAnimsReferenced;
+	bool m_bSeatRHS;
+	bool m_bInRangeToShoot;
+	bool m_bInWeaponRange;
+	bool m_bReachedAbortRange;
+	bool m_bFromScriptCommand;
 
 	char m_nNextCommand;
 	char m_nLastCommand;	// active command
@@ -1227,64 +1227,64 @@ public:
 	void *m_pWeaponInfo;
 
 	void *m_pTargetEntity;
-    CVector m_vecCoords;
+	CVector m_vecCoords;
 };
 
 class CPedSAInterface : public CPhysicalSAInterface // +1420  = current vehicle   312 first byte
 {
 public:
-    // current weapon slot 1184 ( and +1816?)
+	// current weapon slot 1184 ( and +1816?)
 	//CPedIKSAInterface		pedIK; // 528
 	//CWeaponSAInterface	Weapons[9];	// 1032
 	BYTE bPad[348];
-    CPedSoundSAInterface pedSound;
-    BYTE bPad11[472 - sizeof(CPedSoundSAInterface)];
-    CPedFlags pedFlags; // 1132 (16 bytes long including alignment probably)
-    CPedIntelligenceSAInterface * pPedIntelligence;
-    void * pPlayerData; //1152
-    BYTE bPad4a[80];
-    int iMoveAnimGroup;      // 1236
-    BYTE bPad4b[52];
-    BYTE pedIK[32]; // 1292 (length 32 bytes)
-    int bPad5[5];
+	CPedSoundSAInterface pedSound;
+	BYTE bPad11[472 - sizeof(CPedSoundSAInterface)];
+	CPedFlags pedFlags; // 1132 (16 bytes long including alignment probably)
+	CPedIntelligenceSAInterface * pPedIntelligence;
+	void * pPlayerData; //1152
+	BYTE bPad4a[80];
+	int iMoveAnimGroup;      // 1236
+	BYTE bPad4b[52];
+	BYTE pedIK[32]; // 1292 (length 32 bytes)
+	int bPad5[5];
 
-    float fHealth;
-    int  iUnknown121;
-    float fArmor;
+	float fHealth;
+	int  iUnknown121;
+	float fArmor;
 
-    int iUnknown313 [3];        // +1356
-    // +1368 = rotation
-    float fCurrentRotation;
-    float fTargetRotation;
-    float fRotationSpeed;
-    BYTE bPad8[4];
-    CEntitySAInterface * pContactEntity;
-    BYTE bPad3[32];
+	int iUnknown313 [3];        // +1356
+	// +1368 = rotation
+	float fCurrentRotation;
+	float fTargetRotation;
+	float fRotationSpeed;
+	BYTE bPad8[4];
+	CEntitySAInterface * pContactEntity;
+	BYTE bPad3[32];
 	CEntitySAInterface * CurrentObjective; // current vehicle    1420
-    BYTE bPad2[8];
+	BYTE bPad2[8];
 	BYTE bPedType;	// ped type? 0 = player, >1 = ped?
 	BYTE bPad9[7];
-    CWeaponSAInterface      Weapons[WEAPONSLOT_MAX];
-    //weapons at +1440 ends at +1804
-    BYTE bPad4[12];
-    BYTE bCurrentWeaponSlot; // is actually here
-    BYTE bPad6[20];
-    BYTE bFightingStyle; // 1837
-    BYTE bFightingStyleExtra;
-    BYTE bPad7[1];
-    void* pFireOnPed;
-    BYTE bPad10[104];
-    CEntitySAInterface * pTargetedEntity; // 1948
+	CWeaponSAInterface      Weapons[WEAPONSLOT_MAX];
+	//weapons at +1440 ends at +1804
+	BYTE bPad4[12];
+	BYTE bCurrentWeaponSlot; // is actually here
+	BYTE bPad6[20];
+	BYTE bFightingStyle; // 1837
+	BYTE bFightingStyleExtra;
+	BYTE bPad7[1];
+	void* pFireOnPed;
+	BYTE bPad10[104];
+	CEntitySAInterface * pTargetedEntity; // 1948
 };
 
 enum 
 {
-    TASK_PRIORITY_PHYSICAL_RESPONSE=0,
-    TASK_PRIORITY_EVENT_RESPONSE_TEMP,
-    TASK_PRIORITY_EVENT_RESPONSE_NONTEMP,
-    TASK_PRIORITY_PRIMARY,
-    TASK_PRIORITY_DEFAULT,
-    TASK_PRIORITY_MAX
+	TASK_PRIORITY_PHYSICAL_RESPONSE=0,
+	TASK_PRIORITY_EVENT_RESPONSE_TEMP,
+	TASK_PRIORITY_EVENT_RESPONSE_NONTEMP,
+	TASK_PRIORITY_PRIMARY,
+	TASK_PRIORITY_DEFAULT,
+	TASK_PRIORITY_MAX
 };
 
 enum
@@ -1301,10 +1301,10 @@ enum
 class CTaskManagerSAInterface
 {
 public:
-    CTaskSAInterface	* m_tasks[TASK_PRIORITY_MAX];  
-    CTaskSAInterface	* m_tasksSecondary[TASK_SECONDARY_MAX];
+	CTaskSAInterface	* m_tasks[TASK_PRIORITY_MAX];  
+	CTaskSAInterface	* m_tasksSecondary[TASK_SECONDARY_MAX];
 
-    CPedSAInterface		* m_pPed;    
+	CPedSAInterface		* m_pPed;    
 };
 
 #define FUNC_CTask__Operator_New			0x61A5A0
