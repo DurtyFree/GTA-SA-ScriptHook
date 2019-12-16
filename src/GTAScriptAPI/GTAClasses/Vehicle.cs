@@ -29,20 +29,18 @@ namespace GTA
             Internal.Function.Call(0x00a6, this);
         }
 
-        public bool SetInvisible(bool state) => OpCode.Call(OpCodes.SET_CAR_VISIBLE, this, state);
+        public bool SetInvisible(bool state) => this.OpCodeCallOnHandle(OpCodes.SET_CAR_VISIBLE, state);
 
-        public bool SetHeavy(bool state) => OpCode.Call(OpCodes.SET_CAR_HEAVY, this, state);
+        public bool SetHeavy(bool state) => this.OpCodeCallOnHandle(OpCodes.SET_CAR_HEAVY, state);
 
-        public bool Explode() => OpCode.Call(OpCodes.EXPLODE_CAR, this);
+        public bool Explode() => this.OpCodeCallOnHandle(OpCodes.EXPLODE_CAR);
 
-        public void DriveToCoords(float x, float y, float z) => OpCode.Call(OpCodes.CAR_GOTO_COORDINATES, this, x, y, z);
+        public void DriveToCoords(float x, float y, float z) => this.OpCodeCallOnHandle(OpCodes.CAR_GOTO_COORDINATES, x, y, z);
 
-        public int GetMaxNumbersOfPassengers() => OpCode.Call<int>(OpCodes.GET_MAXIMUM_NUMBER_OF_PASSENGERS, this);
+        public int GetMaxNumbersOfPassengers() => this.OpCodeCallOnHandle<int>(OpCodes.GET_MAXIMUM_NUMBER_OF_PASSENGERS);
 
-        public void MakeProofTo(bool bullets, bool fire, bool explosions, bool collisions, bool meleeAttacks)
-        {
-            Internal.Function.Call(0x02ac, this, bullets, fire, explosions, collisions, meleeAttacks);
-        }
+        public void MakeImmunefTo(bool bullets, bool fire, bool explosions, bool collisions, bool meleeAttacks)
+            => OpCode.Call(OpCodes.SET_CAR_PROOFS, this, bullets, fire, explosions, collisions, meleeAttacks);
 
         public Vector3 Position
         {
@@ -59,10 +57,7 @@ namespace GTA
             set => Internal.Function.Call(0x00ab, this, value);
         }
 
-        public void SetImmuneToNonPlayer(bool value)
-        {
-            Internal.Function.Call(0x02AA, this, value);
-        }
+        public void SetImmuneToNonPlayer(bool value) => this.OpCodeCallOnHandle(OpCodes.SET_CAR_ONLY_DAMAGED_BY_PLAYER, value);
 
         public bool DamagedBy(Ped ped)
         {
@@ -81,14 +76,14 @@ namespace GTA
 
         public int Health
         {
-            get => OpCode.Call<int>(OpCodes.GET_CAR_HEALTH, this);
-            set => OpCode.Call(OpCodes.SET_CAR_HEALTH, this, value);
+            get => this.OpCodeCallOnHandle<int>(OpCodes.GET_CAR_HEALTH);
+            set => this.OpCodeCallOnHandle(OpCodes.SET_CAR_HEALTH, value);
         }
 
         public LockDoorTyp LockStatus
         {
-            get => (LockDoorTyp)OpCode.Call<int>(OpCodes.GET_CAR_DOOR_LOCK_STATUS, this);
-            set => OpCode.Call(OpCodes.LOCK_CAR_DOORS, this, (int)value);
+            get => (LockDoorTyp)this.OpCodeCallOnHandle<int>(OpCodes.GET_CAR_DOOR_LOCK_STATUS);
+            set => this.OpCodeCallOnHandle(OpCodes.LOCK_CAR_DOORS, (int)value);
         }
 
         public float Speed
@@ -113,5 +108,7 @@ namespace GTA
         public bool IsAlive => !Internal.Function.Call(0x0119, this);
 
         public bool IsDefined => Internal.Function.Call(0x056e, this);
+
+        public bool IsInWater => this.OpCodeCallOnHandle<bool>(OpCodes.IS_CAR_IN_WATER);
     }
 }
