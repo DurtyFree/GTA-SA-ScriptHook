@@ -16,6 +16,9 @@ namespace GTA
         LOCK_CAR_DOORS = 0x020A, // vHandle, i
         GET_CAR_HEALTH = 0x0227, // vHandle => F
         SET_CAR_HEALTH = 0x0224, // vHandle, i
+        SET_CAR_PROOFS = 0x02AC, // vHandle, b, b, b, b, b
+        SET_CAR_ONLY_DAMAGED_BY_PLAYER = 0x02AA, // vHandle, b
+        IS_CAR_IN_WATER = 0x02BF, // vHandle => b
     }
 
     public static class OpCode
