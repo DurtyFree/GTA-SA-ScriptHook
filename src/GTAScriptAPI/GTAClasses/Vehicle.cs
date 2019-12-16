@@ -29,11 +29,11 @@ namespace GTA
             Internal.Function.Call(0x00a6, this);
         }
 
-        public void SetInvisible(bool state) => OpCode.Call(OpCodes.SET_CAR_VISIBLE, this, state);
+        public bool SetInvisible(bool state) => OpCode.Call(OpCodes.SET_CAR_VISIBLE, this, state);
 
-        public void SetHeavy(bool state) => OpCode.Call(OpCodes.SET_CAR_HEAVY, this, state);
+        public bool SetHeavy(bool state) => OpCode.Call(OpCodes.SET_CAR_HEAVY, this, state);
 
-        public void Explode() => OpCode.Call(OpCodes.EXPLODE_CAR, this);
+        public bool Explode() => OpCode.Call(OpCodes.EXPLODE_CAR, this);
 
         public void DriveToCoords(float x, float y, float z) => OpCode.Call(OpCodes.CAR_GOTO_COORDINATES, this, x, y, z);
 

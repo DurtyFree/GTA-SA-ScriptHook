@@ -20,7 +20,7 @@ namespace GTA
 
     public static class OpCode
     {
-        public static void Call(OpCodes opCode, params Parameter[] parameters) => Function.Call((uint)opCode, parameters);
+        public static bool Call(OpCodes opCode, params Parameter[] parameters) => Function.Call((uint)opCode, parameters);
 
         public static TReturn Call<TReturn>(OpCodes opCode, params Parameter[] parameters) => Function.Call<TReturn>((uint)opCode, parameters);
     }
